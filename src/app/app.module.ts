@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { QuestionManagementPageComponent } from './question-management-page/question-management-page.component';
@@ -13,11 +13,12 @@ import { ListsQuestionsPageComponent } from './lists-questions-page/lists-questi
     QuestionManagementPageComponent,
     QuestionPageComponent,
     QuestionEditPageComponent,
-    ListsQuestionsPageComponent
+    ListsQuestionsPageComponent,
   ],
   imports: [
     BrowserModule
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],
   bootstrap: [AppComponent]
 })

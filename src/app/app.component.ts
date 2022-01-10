@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, SimpleChange, OnInit } from '@angular/core';
+import { TestService } from './shared/services/Question.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  constructor(private testService: TestService) {
+  }
+
+  ngOnChanges(obj: SimpleChange) {
+    console.log(obj)
+  }
+
   title = 'Questionnaire';
+
 }

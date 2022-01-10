@@ -1,6 +1,10 @@
 <div class="question-management-page">
   <h1 class="question-management-page__title">Question List</h1>
 
+  <button class="button button-create">
+    Create a new question
+  </button>
+
   <ul class="questions-list">
     <li *ngFor="let question of questions" class="question-item">
       <div class="question-item__description">
@@ -18,18 +22,14 @@
       </div>
 
       <div class="button-container">
-        <button (click)="editQuestion(question)" class="button button-edit">
+        <button (click)="editQuestion()" class="button button-edit">
           Edit
         </button>
-        
+
         <button (click)="removeFromList(question.id)" class="button button-remove">
           Remove
         </button>
       </div>
     </li>
   </ul>
-
-  <button>
-    Create a new question
-  </button>
 </div>

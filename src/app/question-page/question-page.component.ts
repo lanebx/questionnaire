@@ -5,11 +5,10 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './question-page.component.html',
   styleUrls: ['./question-page.component.scss']
 })
-export class QuestionPageComponent implements OnInit {
+export class QuestionPageComponent {
+  constructor() {
 
-  constructor() { }
-
-  ngOnInit(): void {
   }
 
+  
 }
