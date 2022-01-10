@@ -1,7 +1,35 @@
 <div class="question-management-page">
-  <h1>Question List</h1>
+  <h1 class="question-management-page__title">Question List</h1>
 
-  <ul>
-    <li *ngFor="let question of questions">{{question.description}}</li>
+  <ul class="questions-list">
+    <li *ngFor="let question of questions" class="question-item">
+      <div class="question-item__description">
+        {{question.description}}
+      </div>
+
+      <div class="question-item__info-container">
+        <div class="question-item__type">
+          {{question.type}}
+        </div>
+  
+        <div class="question-item__date">
+          {{question.date}}
+        </div>
+      </div>
+
+      <div class="button-container">
+        <button (click)="editQuestion(question)" class="button button-edit">
+          Edit
+        </button>
+        
+        <button (click)="removeFromList(question.id)" class="button button-remove">
+          Remove
+        </button>
+      </div>
+    </li>
   </ul>
+
+  <button>
+    Create a new question
+  </button>
 </div>
