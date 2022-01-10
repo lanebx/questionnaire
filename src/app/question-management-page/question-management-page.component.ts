@@ -36,7 +36,7 @@ export class QuestionManagementPageComponent {
       return newQuestions
     }
 
-    return this.allQuestion
+    return newQuestions
       .filter(item => this.filter === 'answered' ? item.answered : !item.answered)
       .sort((a, b) => <any>new Date(b.date) - <any>new Date(a.date) )
   }
