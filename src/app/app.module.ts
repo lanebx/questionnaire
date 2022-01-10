@@ -6,6 +6,7 @@ import { QuestionManagementPageComponent } from './question-management-page/ques
 import { QuestionPageComponent } from './question-page/question-page.component';
 import { QuestionEditPageComponent } from './question-edit-page/question-edit-page.component';
 import { ListsQuestionsPageComponent } from './lists-questions-page/lists-questions-page.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ListsQuestionsPageComponent } from './lists-questions-page/lists-questi
     ListsQuestionsPageComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRoutingModule
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],

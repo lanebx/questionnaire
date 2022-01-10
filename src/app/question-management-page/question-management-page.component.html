@@ -1,9 +1,15 @@
 <div class="question-management-page">
   <h1 class="question-management-page__title">Question List</h1>
 
-  <button class="button button-create">
-    Create a new question
-  </button>
+  <div class="button-container">
+    <button class="button button-create" routerLink="/edit">
+      Create a new question
+    </button>
+  
+    <button class="button button-create" routerLink="/wiev">
+      Wieving all question
+    </button>
+  </div>
 
   <ul class="questions-list">
     <li *ngFor="let question of questions" class="question-item">
@@ -22,7 +28,7 @@
       </div>
 
       <div class="button-container">
-        <button (click)="editQuestion()" class="button button-edit">
+        <button class="button button-edit" routerLink="/add">
           Edit
         </button>
 
