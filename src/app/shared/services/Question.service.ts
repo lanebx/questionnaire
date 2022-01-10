@@ -15,4 +15,8 @@ export class TestService {
     { id: 5, description: 'Question 5', answered: false, answer: '', type: 'Open choice', date: '2018-09-15 17:17:30.0' },
   ]
 
+  edit(idForEdit) {
+    
+  }
+
 }

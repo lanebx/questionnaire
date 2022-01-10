@@ -2,7 +2,7 @@
   <h1 class="question-management-page__title">Question List</h1>
 
   <div class="button-container">
-    <button class="button button-create" routerLink="/edit">
+    <button class="button button-create" routerLink="/add">
       Create a new question
     </button>
   
@@ -28,7 +28,7 @@
       </div>
 
       <div class="button-container">
-        <button class="button button-edit" routerLink="/add">
+        <button (click)="edit(question.id)" class="button button-edit" routerLink="/edit">
           Edit
         </button>
 

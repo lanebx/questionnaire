@@ -1,6 +1,5 @@
 import { TestService } from '../shared/services/Question.service';
-import { Component, Input, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 export interface Question {
   id: number;
@@ -8,9 +7,10 @@ export interface Question {
   answered: boolean;
   answer: string;
   type: 'Single choice' | 'Multiple Choice' | 'Open choice';
-  singleChoice?: string[];
+  singleChoice?: ['Yes', 'No'];
   multipleChoice?: string[];
   date: string;
+
 }
 
 @Component({
@@ -36,10 +36,12 @@ export class QuestionManagementPageComponent {
       .sort((a, b) => <any>new Date(b.date) - <any>new Date(a.date) )
   }
 
-  removeFromList(idFoDelete) {
-    this.testService.allQuestion = this.testService.allQuestion.filter((question) => idFoDelete !== question.id)
+  removeFromList(idForDelete) {
+    this.testService.allQuestion = this.testService.allQuestion.filter((question) => idForDelete !== question.id)
   }
 
-  editQuestion() {
+  
+  edit(idForEdit) {
+
   }
 }
