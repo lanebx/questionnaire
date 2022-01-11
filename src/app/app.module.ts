@@ -7,6 +7,7 @@ import { QuestionPageComponent } from './question-page/question-page.component';
 import { QuestionEditPageComponent } from './question-edit-page/question-edit-page.component';
 import { ListsQuestionsPageComponent } from './lists-questions-page/lists-questions-page.component';
 import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { AppRoutingModule } from './app-routing.module';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],

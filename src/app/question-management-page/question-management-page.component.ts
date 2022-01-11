@@ -1,18 +1,6 @@
 import { TestService } from '../shared/services/Question.service';
 import { Component } from '@angular/core';
 
-export interface Question {
-  id: number;
-  description: string;
-  answered: boolean;
-  answer: string;
-  type: 'Single choice' | 'Multiple Choice' | 'Open choice';
-  singleChoice?: ['Yes', 'No'];
-  multipleChoice?: string[];
-  date: string;
-
-}
-
 @Component({
   selector: 'app-question-management-page',
   templateUrl: './question-management-page.component.html',
@@ -38,10 +26,5 @@ export class QuestionManagementPageComponent {
 
   removeFromList(idForDelete) {
     this.testService.allQuestion = this.testService.allQuestion.filter((question) => idForDelete !== question.id)
-  }
-
-  
-  edit(idForEdit) {
-
   }
 }

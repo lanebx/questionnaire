@@ -1,43 +1,23 @@
 <div class="question-page">
-  <h1 class="question-edit-page__title">
+  <h1 class="question-page__title">
     Create new question
   </h1>
 
-  <button class="button">
+  <button class="button" routerLink="/">
     Go back
   </button>
 
-  <form class="edit">
-    <label class="label">
-      <div class="edit__description">
-        New description
-      </div>
-      <input type="text" class="input">
-    </label>
+  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="form">
+    <input formControlName="description" class="input" placeholder="Question:">
 
-    <label class="label">
-      <div class="edit__answered">
-        New status
-      </div>
-      <input type="text" class="input">
-    </label>
+    <select formControlName="type" (change)="selectType($event)" class="form__select">
+      <option *ngFor="let type of allTypes" [value]="type">
+        {{ type }}
+      </option>
+    </select>
 
-    <label class="label">
-      <div class="edit__type">
-        New type
-      </div>
-      <input type="text" class="input">
-    </label>
-    
-    <label class="label">
-      <div class="edit__type-detailed">
-        New type-detailed
-      </div>
-      <input type="text" class="input">
-    </label>
-
-    <button type="submit">
-
+    <button class="button" type="submit" [disabled]="!questionForm.valid">
+      Submit
     </button>
   </form>
 </div>
