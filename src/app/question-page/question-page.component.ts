@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Question, TestService } from '../shared/services/Question.service';
 
 @Component({
   selector: 'app-question-page',
@@ -8,11 +10,14 @@ import { FormBuilder } from '@angular/forms';
   styleUrls: ['./question-page.component.scss']
 })
 export class QuestionPageComponent {
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private testService: TestService,
+    private route:Router
+  ) { }
 
-  questionForm!: FormGroup
-  description: string
-  type: string
+  questionForm: FormGroup;
+  chosedType: string;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -20,38 +25,63 @@ export class QuestionPageComponent {
 
   initializeForm() : void {
     this.questionForm = this.fb.group({
-      description: new FormControl('', Validators.required),
+      question: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
-      multipleChoice: this.fb.array([this.fb.control('', Validators.required)])
-    })
+      answerType: this.fb.array([this.fb.control('', Validators.required)])
+    });
   }
 
   allTypes = [
-    'Single choice',
-    'Multiple Choice',
-    'Open choice',
-  ]
+    { id: 1, name: 'Single', answerType: ['Yes', 'No'] },
+    { id: 2, name: 'Multiple', answerType: [''] },
+    { id: 3, name: 'Open', answerType: '' },
+  ];
 
   onSubmit() {
-    console.log(this.questionForm)
+    let newQuestion: Question;
+
+    if (this.questionForm.get('question').value === 'Multiple') {
+      newQuestion = {
+        id: Date.now(),
+        question: this.questionForm.get('question').value,
+        answered: false,
+        answer: '',
+        type: this.questionForm.get('type').value,
+        date: (new Date).toISOString(),
+        answerType: this.questionForm.get('multipleChoice').value,
+      }
+    } else {
+      newQuestion = {
+        id: Date.now(),
+        question: this.questionForm.get('question').value,
+        answered: false,
+        answer: '',
+        type: this.questionForm.get('type').value,
+        date: (new Date).toISOString(),
+        answerType: this.allTypes.find((type) => type.name === this.chosedType)?.answerType,
+      }
+    }
+
+    this.testService.allQuestion.push(newQuestion)
+    this.initializeForm()
+    this.route.navigate(['/']);
   }
 
   selectType(event: any): void {
-    console.log(event.target.value)
-    this.type = this.allTypes.find((t) => t === event.target.value)
+    this.chosedType = event.target.value
   }
 
-  addHobby(): void {
-    if (this.multipleChoice.value.every((item: any) => item.length >= 1)) {
-      this.multipleChoice.push(this.fb.control(''));
+  addChoice(): void {
+    if (this.answerType.value.every((item: any) => item.length >= 1)) {
+      this.answerType.push(this.fb.control(''))
     }
   }
 
-  removeHobby(index: number) : void {
-    this.multipleChoice.removeAt(index);
+  removeChoice(index: number) : void {
+    this.answerType.removeAt(index)
   }
 
-  get multipleChoice(): FormArray {
-    return this.questionForm.get('multipleChoice') as FormArray;
+  get answerType(): FormArray {
+    return this.questionForm.get('answerType') as FormArray;
   }
 }

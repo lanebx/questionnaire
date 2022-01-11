@@ -12,18 +12,18 @@
   </div>
 
   <ul class="questions-list">
-    <li *ngFor="let question of questions" class="question-item">
+    <li *ngFor="let quest of questions" class="question-item">
       <div class="question-item__description">
-        {{question.description}}
+        {{ quest.question }}
       </div>
 
       <div class="question-item__info-container">
         <div class="question-item__type">
-          {{question.type}}
+          {{ quest.type }}
         </div>
   
         <div class="question-item__date">
-          {{question.date}}
+          {{ quest.date }}
         </div>
       </div>
 
