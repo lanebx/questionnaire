@@ -7,7 +7,11 @@
     Go back
   </button>
 
-  <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="form">
+  <form
+    [formGroup]="questionForm"
+    (ngSubmit)="onSubmit()"
+    class="form"
+  >
     <label class="label">
       <div>
         Enter new question:
@@ -21,7 +25,11 @@
         Select type of question:
       </div>
 
-      <select formControlName="type" (change)="selectType($event)" class="form__select input">
+      <select
+        formControlName="type"
+        (change)="selectType($event)"
+        class="form__select input"
+      >
         <option *ngFor="let type of allTypes" [value]="type.name">
           {{ type.name }}
         </option>
@@ -29,14 +37,27 @@
     </label>
 
     <div *ngIf="chosedType === 'Multiple'" class="form__group-container">
-      <div formArrayName="answerType" *ngFor="let coise of answerType.controls; let i=index" class="form__group">
+      <div
+        formArrayName="answerType"
+        *ngFor="let coise of answerType.controls; let i=index"
+        class="form__group"
+      >
         <div class="form__hobby-group">
           <div class="">
             Enter answers to the question:
           </div>
           <div class="input-container">
-            <input [formControlName]="i" type="text" placeholder="Your answer:" class="form__input-hobby input">
-            <button type="button" id="remove" (click)="removeChoice(i)" class="button button-remove input-container__button ">
+            <input
+              [formControlName]="i"
+              type="text"
+              placeholder="Your answer:"
+              class="form__input-hobby input"
+            >
+            <button
+              type="button"
+              id="remove"
+              (click)="removeChoice(i)"
+              class="button button-remove input-container__button">
               X
             </button>
           </div>

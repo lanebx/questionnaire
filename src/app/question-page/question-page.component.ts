@@ -31,27 +31,19 @@ export class QuestionPageComponent {
     });
   }
 
-  allTypes = [
-    { id: 1, name: 'Single', answerType: ['Yes', 'No'] },
-    { id: 2, name: 'Multiple', answerType: [''] },
-    { id: 3, name: 'Open', answerType: '' },
-  ];
+  allTypes = this.testService.allTypes.map((item) => ({...item}));
+
 
   onSubmit() {
-    let newQuestion: Question;
-
-    console.log()
-
-    if (this.questionForm.get('question').value === 'Multiple') {
-      newQuestion = {
+    const newQuestion = this.questionForm.get('question').value === 'Multiple'
+      ? {
         ...this.questionForm.value,
         id: Date.now(),
         answered: false,
         answer: '',
         date: (new Date).toISOString(),
       }
-    } else {
-      newQuestion = {
+      : {
         ...this.questionForm.value,
         id: Date.now(),
         answered: false,
@@ -59,7 +51,6 @@ export class QuestionPageComponent {
         date: (new Date).toISOString(),
         answerType: this.allTypes.find((type) => type.name === this.chosedType)?.answerType,
       }
-    }
 
     this.testService.allQuestion.push(newQuestion)
     this.initializeForm()

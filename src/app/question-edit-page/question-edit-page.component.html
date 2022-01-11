@@ -3,41 +3,88 @@
     Edit question
   </h1>
 
+  <div *ngIf="!this.testService.indexForEdit" class="warning">
+    Go back to select an item to change
+  </div>
+
   <button class="button" routerLink="/">
     Go back
   </button>
 
-  <form class="edit">
-    <label class="label">
-      <div class="edit__question">
-        New question
-      </div>
-      <input type="text" class="input">
-    </label>
+  <div class="container">
+    <form
+      [formGroup]="editQuestionForm"
+      (ngSubmit)="onSubmit()"
+      class="form"
+    >
+      <label class="label">
+        <div>
+          Edit question:
+        </div>
+        <input formControlName="question" class="input">
+      </label>
 
-    <label class="label">
-      <div class="edit__answered">
-        New status
-      </div>
-      <input type="text" class="input">
-    </label>
+      <label class="label">
+        <div>
+          Edit type of question:
+        </div>
 
-    <label class="label">
-      <div class="edit__type">
-        New type
-      </div>
-      <input type="text" class="input">
-    </label>
-    
-    <label class="label">
-      <div class="edit__type-detailed">
-        New type-detailed
-      </div>
-      <input type="text" class="input">
-    </label>
+        <select
+          formControlName="type"
+          (change)="selectType($event)"
+          class="form__select input"
+        >
+          <option *ngFor="let type of allTypes" [value]="type.name">
+            {{ type.name }}
+          </option>
+        </select>
+      </label>
 
-    <button type="submit">
+      <div
+        *ngIf="chosedType === 'Multiple'"
+        class="form__group-container"
+      >
+        <div
+          formArrayName="answerType"
+          *ngFor="let coise of answerType.controls;
+          let i=index"
+          class="form__group"
+        >
+          <div class="form__hobby-group">
+            <div class="">
+              Enter answers to the question:
+            </div>
+            <div class="input-container">
+              <input
+                [formControlName]="i"
+                type="text"
+                placeholder="Your answer:"
+                class="form__input-hobby input"
+              >
+              <button
+                type="button"
+                id="remove"
+                (click)="removeChoice(i)"
+                class="button button-remove input-container__button"
+              >
+                X
+              </button>
+            </div>
+          </div>
+        </div>
 
-    </button>
-  </form>
+        <button
+          type="button"
+          (click)="addChoice()"
+          class="button button-add"
+        >
+          Add answer
+        </button>
+      </div>
+
+      <button type="submit" class="button button-submit">
+        Submit
+      </button>
+    </form>
+  </div>
 </div>

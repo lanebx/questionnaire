@@ -27,4 +27,8 @@ export class QuestionManagementPageComponent {
   removeFromList(idForDelete) {
     this.testService.allQuestion = this.testService.allQuestion.filter((question) => idForDelete !== question.id)
   }
+
+  getIdForEditing(id: number) {
+    this.testService.indexForEdit = id;
+  }
 }

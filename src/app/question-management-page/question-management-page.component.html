@@ -5,7 +5,7 @@
     <button class="button button-create" routerLink="/add">
       Create a new question
     </button>
-  
+
     <button class="button button-create" routerLink="/wiev">
       Wieving all question
     </button>
@@ -21,14 +21,14 @@
         <div class="question-item__type">
           {{ quest.type }}
         </div>
-  
+
         <div class="question-item__date">
           {{ quest.date | date : 'MMM d, y' }}
         </div>
       </div>
 
       <div class="button-container">
-        <button (click)="edit(question.id)" class="button button-edit" routerLink="/edit">
+        <button (click)="getIdForEditing(question.id)" class="button button-edit" routerLink="/edit">
           Edit
         </button>
 
