@@ -16,7 +16,6 @@ export class TestService {
   ]
 
   edit(idForEdit) {
-    
-  }
 
+  }
 }
