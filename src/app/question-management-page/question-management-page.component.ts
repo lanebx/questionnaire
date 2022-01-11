@@ -1,5 +1,6 @@
 import { TestService } from '../shared/services/Question.service';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-question-management-page',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./question-management-page.component.scss']
 })
 export class QuestionManagementPageComponent {
-  constructor(private testService: TestService) { }
+  constructor(private testService: TestService, private route:Router) { }
 
   filter: 'all' | 'answered' | 'notAnswered' = 'all';
 
@@ -30,5 +31,6 @@ export class QuestionManagementPageComponent {
 
   getIdForEditing(id: number) {
     this.testService.indexForEdit = id;
+    this.route.navigate(['/edit']);
   }
 }

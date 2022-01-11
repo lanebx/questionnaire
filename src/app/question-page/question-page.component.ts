@@ -13,7 +13,7 @@ export class QuestionPageComponent {
   constructor(
     private fb: FormBuilder,
     private testService: TestService,
-    private route:Router
+    private route: Router
   ) { }
 
   questionForm: FormGroup;

@@ -11,7 +11,7 @@
     Go back
   </button>
 
-  <div class="container">
+  <div class="container" *ngIf="this.testService.indexForEdit">
     <form
       [formGroup]="editQuestionForm"
       (ngSubmit)="onSubmit()"
