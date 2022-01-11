@@ -17,6 +17,9 @@ export class QuestionEditPageComponent implements OnInit {
   ) { }
 
   editQuestionForm: FormGroup;
+  typeQuestion: string;
+  selelectedType;
+  selelectedAnswerOptions: boolean;
 
   allTypes = this.testService.allTypes.map((item) => ({...item}));
 
@@ -40,22 +43,34 @@ export class QuestionEditPageComponent implements OnInit {
   }
 
   onSubmit() {
-    this.testService.allQuestion = this.testService.allQuestion.map((item) => {
-      if(this.selectQuestion.id === item.id) {
-        return {
-          ...item,
-          ...this.editQuestionForm.value,
-        }
+    const newQuestion = this.selelectedType.constAnswerOptions
+      ? {
+        ...this.editQuestionForm.value,
+        id: Date.now(),
+        answered: false,
+        answer: '',
+        date: (new Date).toISOString(),
+        answerOptions: this.selelectedType.answerOptions,
+      }
+      : {
+        ...this.editQuestionForm.value,
+        id: Date.now(),
+        answered: false,
+        answer: '',
+        date: (new Date).toISOString(),
       }
 
-      return item
-    })
+    this.testService.allQuestion = this.testService.allQuestion
+      .map((item) => this.selectQuestion.id === item.id ? newQuestion : item)
 
+    console.log(newQuestion)
     this.route.navigate(['/']);
   }
 
   selectType(event: any): void {
-    this.chosedType = event.target.value
+    this.typeQuestion = event.target.value;
+    this.selelectedType = this.allTypes.find(({ name }) => name === this.typeQuestion)
+    this.selelectedAnswerOptions = !this.selelectedType.constAnswerOptions
   }
 
   addChoice(): void {
@@ -65,7 +80,7 @@ export class QuestionEditPageComponent implements OnInit {
   }
 
   removeChoice(index: number) : void {
-    this.answerOptions.removeAt(index)
+    this.answerOptions.removeAt(index);
   }
 
   get answerOptions(): FormArray {

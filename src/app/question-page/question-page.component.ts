@@ -20,7 +20,7 @@ export class QuestionPageComponent {
   questionForm: FormGroup;
   typeQuestion: string;
   selelectedType;
-  selelectedAnswerOptions;
+  selelectedAnswerOptions: boolean;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -53,7 +53,6 @@ export class QuestionPageComponent {
         answer: '',
         date: (new Date).toISOString(),
       }
-
     this.testService.allQuestion.push(newQuestion)
     this.initializeForm()
     this.route.navigate(['/']);
