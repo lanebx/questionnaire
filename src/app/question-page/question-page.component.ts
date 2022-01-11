@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 
 @Component({
@@ -20,9 +20,9 @@ export class QuestionPageComponent {
 
   initializeForm() : void {
     this.questionForm = this.fb.group({
-      description: new FormControl(''),
-      type: new FormControl(''),
-/*    multipleChoice: this.fb.array([this.fb.control('', Validators.required)])*/
+      description: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required),
+      multipleChoice: this.fb.array([this.fb.control('', Validators.required)])
     })
   }
 
@@ -37,8 +37,21 @@ export class QuestionPageComponent {
   }
 
   selectType(event: any): void {
-
     console.log(event.target.value)
     this.type = this.allTypes.find((t) => t === event.target.value)
+  }
+
+  addHobby(): void {
+    if (this.multipleChoice.value.every((item: any) => item.length >= 1)) {
+      this.multipleChoice.push(this.fb.control(''));
+    }
+  }
+
+  removeHobby(index: number) : void {
+    this.multipleChoice.removeAt(index);
+  }
+
+  get multipleChoice(): FormArray {
+    return this.questionForm.get('multipleChoice') as FormArray;
   }
 }

@@ -1,5 +1,5 @@
 <div class="question-page">
-  <h1 class="question-page__title">
+  <h1 class="question-page__title title">
     Create new question
   </h1>
 
@@ -8,15 +8,46 @@
   </button>
 
   <form [formGroup]="questionForm" (ngSubmit)="onSubmit()" class="form">
-    <input formControlName="description" class="input" placeholder="Question:">
+    <label class="label">
+      <div>
+        Enter new question:
+      </div>
+      <input formControlName="description" class="input">
+    </label>
+    
 
-    <select formControlName="type" (change)="selectType($event)" class="form__select">
-      <option *ngFor="let type of allTypes" [value]="type">
-        {{ type }}
-      </option>
-    </select>
+    <label class="label">
+      <div>
+        Select type of question:
+      </div>
 
-    <button class="button" type="submit" [disabled]="!questionForm.valid">
+      <select formControlName="type" (change)="selectType($event)" class="form__select input">
+        <option *ngFor="let type of allTypes" [value]="type">
+          {{ type }}
+        </option>
+      </select>
+    </label>
+
+    <div class="form__group-container" *ngIf="type === 'Multiple Choice'">
+      <!-- <div class="warning">
+        {{ warning }}
+      </div> -->
+      <div formArrayName="multipleChoice" *ngFor="let coise of multipleChoice.controls; let i=index" class="form__group">
+        <div class="form__hobby-group">
+          <input [formControlName]="i" type="text" placeholder="Your answer:" class="form__input-hobby input">
+          <button type="button" id="remove" (click)="removeHobby(i)" class="button button-remove">
+            X
+          </button>
+        </div>
+      </div>
+  
+      <button type="button" (click)="addHobby()" class="button button-add">
+        Add answer
+      </button>
+    </div>
+    
+
+    <button class="button button-submit" type="submit" [disabled]="!questionForm.valid">
       Submit
     </button>
   </form>
