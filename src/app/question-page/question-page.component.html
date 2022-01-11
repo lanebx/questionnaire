@@ -28,20 +28,22 @@
       </select>
     </label>
 
-    <div class="form__group-container" *ngIf="chosedType === 'Multiple Choice'">
-      <!-- <div class="warning">
-        {{ warning }}
-      </div> -->
-      <div formArrayName="multipleChoice" *ngFor="let coise of answerType.controls; let i=index" class="form__group">
+    <div *ngIf="chosedType === 'Multiple'" class="form__group-container">
+      <div formArrayName="answerType" *ngFor="let coise of answerType.controls; let i=index" class="form__group">
         <div class="form__hobby-group">
-          <input [formControlName]="i" type="text" placeholder="Your answer:" class="form__input-hobby input">
-          <button type="button" id="remove" (click)="removeHobby(i)" class="button button-remove">
-            X
-          </button>
+          <div class="">
+            Enter answers to the question:
+          </div>
+          <div class="input-container">
+            <input [formControlName]="i" type="text" placeholder="Your answer:" class="form__input-hobby input">
+            <button type="button" id="remove" (click)="removeChoice(i)" class="button button-remove input-container__button ">
+              X
+            </button>
+          </div>
         </div>
       </div>
   
-      <button type="button" (click)="addHobby()" class="button button-add" >
+      <button type="button" (click)="addChoice()" class="button button-add" >
         Add answer
       </button>
     </div>

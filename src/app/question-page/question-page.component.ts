@@ -40,23 +40,22 @@ export class QuestionPageComponent {
   onSubmit() {
     let newQuestion: Question;
 
+    console.log()
+
     if (this.questionForm.get('question').value === 'Multiple') {
       newQuestion = {
+        ...this.questionForm.value,
         id: Date.now(),
-        question: this.questionForm.get('question').value,
         answered: false,
         answer: '',
-        type: this.questionForm.get('type').value,
         date: (new Date).toISOString(),
-        answerType: this.questionForm.get('multipleChoice').value,
       }
     } else {
       newQuestion = {
+        ...this.questionForm.value,
         id: Date.now(),
-        question: this.questionForm.get('question').value,
         answered: false,
         answer: '',
-        type: this.questionForm.get('type').value,
         date: (new Date).toISOString(),
         answerType: this.allTypes.find((type) => type.name === this.chosedType)?.answerType,
       }
