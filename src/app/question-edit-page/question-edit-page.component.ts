@@ -1,5 +1,6 @@
+import { Question } from './../shared/services/Question.service';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TestService } from '../shared/services/Question.service';
 
@@ -16,29 +17,58 @@ export class QuestionEditPageComponent implements OnInit {
   ) { }
 
   editQuestionForm: FormGroup;
-  chosedType: string;
 
   allTypes = this.testService.allTypes.map((item) => ({...item}));
+
+  selectQuestion: Question = this.testService.allQuestion
+      .find(({ id }) => id === this.testService.indexForEdit);
+
+  chosedType: string = this.selectQuestion.type;
 
   ngOnInit(): void {
     this.initializeForm();
   }
 
   initializeForm() : void {
-    this.editQuestionForm = this.fb.group({
-      question: new FormControl('', Validators.required),
-      type: new FormControl('', Validators.required),
-      answerType: this.fb.array([this.fb.control('', Validators.required)])
-    });
+    if (this.selectQuestion) {
+      this.editQuestionForm = this.fb.group({
+        question: new FormControl(this.selectQuestion.question, Validators.required),
+        type: new FormControl(this.selectQuestion.type, Validators.required),
+        answerOptions: this.fb.array([this.fb.control('', Validators.required)])
+      });
+    }
   }
 
   onSubmit() {
-    
+    this.testService.allQuestion = this.testService.allQuestion.map((item) => {
+      if(this.selectQuestion.id === item.id) {
+        return {
+          ...item,
+          ...this.editQuestionForm.value,
+        }
+      }
+
+      return item
+    })
+
+    this.route.navigate(['/']);
   }
 
   selectType(event: any): void {
     this.chosedType = event.target.value
   }
 
+  addChoice(): void {
+    if (this.answerOptions.value.every((item: any) => item.length >= 1)) {
+      this.answerOptions.push(this.fb.control(''))
+    }
+  }
 
+  removeChoice(index: number) : void {
+    this.answerOptions.removeAt(index)
+  }
+
+  get answerOptions(): FormArray {
+    return this.editQuestionForm.get('answerOptions') as FormArray;
+  }
 }

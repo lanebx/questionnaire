@@ -1,8 +1,9 @@
+import { Question } from './../shared/services/Question.service';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Question, TestService } from '../shared/services/Question.service';
+import { TestService } from '../shared/services/Question.service';
 
 @Component({
   selector: 'app-question-page',
@@ -17,7 +18,9 @@ export class QuestionPageComponent {
   ) { }
 
   questionForm: FormGroup;
-  chosedType: string;
+  typeQuestion: string;
+  selelectedType;
+  selelectedAnswerOptions;
 
   ngOnInit(): void {
     this.initializeForm();
@@ -27,21 +30,21 @@ export class QuestionPageComponent {
     this.questionForm = this.fb.group({
       question: new FormControl('', Validators.required),
       type: new FormControl('', Validators.required),
-      answerType: this.fb.array([this.fb.control('', Validators.required)])
+      answerOptions: this.fb.array([this.fb.control('', Validators.required)])
     });
   }
 
   allTypes = this.testService.allTypes.map((item) => ({...item}));
 
-
   onSubmit() {
-    const newQuestion = this.questionForm.get('question').value === 'Multiple'
+    const newQuestion = this.selelectedType.constAnswerOptions
       ? {
         ...this.questionForm.value,
         id: Date.now(),
         answered: false,
         answer: '',
         date: (new Date).toISOString(),
+        answerOptions: this.selelectedType.answerOptions,
       }
       : {
         ...this.questionForm.value,
@@ -49,7 +52,6 @@ export class QuestionPageComponent {
         answered: false,
         answer: '',
         date: (new Date).toISOString(),
-        answerType: this.allTypes.find((type) => type.name === this.chosedType)?.answerType,
       }
 
     this.testService.allQuestion.push(newQuestion)
@@ -58,20 +60,24 @@ export class QuestionPageComponent {
   }
 
   selectType(event: any): void {
-    this.chosedType = event.target.value
+    this.typeQuestion = event.target.value;
+    this.selelectedType = this.allTypes.find(({ name }) => name === this.typeQuestion)
+    this.selelectedAnswerOptions = !this.selelectedType.constAnswerOptions
   }
 
   addChoice(): void {
-    if (this.answerType.value.every((item: any) => item.length >= 1)) {
-      this.answerType.push(this.fb.control(''))
+    const checkLenth = this.answerOptions.value.every((item: any) => item.length >= 1);
+
+    if (checkLenth) {
+      this.answerOptions.push(this.fb.control(''))
     }
   }
 
   removeChoice(index: number) : void {
-    this.answerType.removeAt(index)
+    this.answerOptions.removeAt(index)
   }
 
-  get answerType(): FormArray {
-    return this.questionForm.get('answerType') as FormArray;
+  get answerOptions(): FormArray {
+    return this.questionForm.get('answerOptions') as FormArray;
   }
 }

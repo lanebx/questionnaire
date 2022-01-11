@@ -36,10 +36,10 @@
       </select>
     </label>
 
-    <div *ngIf="chosedType === 'Multiple'" class="form__group-container">
+    <div *ngIf="selelectedAnswerOptions" class="form__group-container">
       <div
-        formArrayName="answerType"
-        *ngFor="let coise of answerType.controls; let i=index"
+        formArrayName="answerOptions"
+        *ngFor="let coise of answerOptions.controls; let i=index"
         class="form__group"
       >
         <div class="form__hobby-group">
