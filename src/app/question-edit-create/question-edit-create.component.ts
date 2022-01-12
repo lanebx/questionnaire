@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Question, TestService } from '../shared/services/Question.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-question-edit-create',
@@ -13,7 +14,8 @@ export class QuestionEditCreateComponent {
   constructor (
     private fb: FormBuilder,
     public testService: TestService,
-    private route: Router
+    private route: ActivatedRoute,
+    private path: Router,
   ) { }
 
   questionForm: FormGroup;
@@ -21,15 +23,20 @@ export class QuestionEditCreateComponent {
   allTypes = this.testService.allTypes.map((item) => ({...item}));
   editableQuestion: Question;
   type: string = 'Open';
+  id: number | undefined;
+  checkId: boolean = true;
   
   pageTitle: string = 'Edit question';
 
   ngOnInit(): void {
-    const { questionForEdit, statusEditCreate } = this.testService;
-
-    if (questionForEdit) {
+    if (this.testService.questionForEdit) {
       this.editableQuestion = this.testService.questionForEdit;
       this.initializeEditForm()
+
+      this.route.paramMap.pipe(
+        switchMap(params => params.getAll('id'))
+      ).subscribe(data => this.id = +data);
+
     } else {
       this.initializeCreateForm()
     }
@@ -37,15 +44,21 @@ export class QuestionEditCreateComponent {
     this.questionForm.get('type').valueChanges.subscribe(val => {
       this.type = val;
     })
+
+    this.checkId = this.testService.allQuestion.some(item => {
+      console.log(item.id, this.id);
+
+      return item.id === this.id;
+    });
+
   }
 
   initializeEditForm() : void {
-    console.log(this.testService.statusEditCreate, this.editableQuestion)
     this.questionForm = this.fb.group({
       question: new FormControl(this.editableQuestion.question, Validators.required),
       type: new FormControl(this.editableQuestion.type, Validators.required),
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
-    });;
+    });
   }
 
   initializeCreateForm() : void {
@@ -56,44 +69,21 @@ export class QuestionEditCreateComponent {
     });
   }
 
-  /* onSubmit() {
-    const selelectedType = this.allTypes.find((item) => this.updatedQuestionType === item.name);
-    let answerOptions;
-
-    if(selelectedType) {
-      answerOptions = selelectedType.answerOptions;
+  onSubmit() {
+    const newQuestion = {
+      ...this.questionForm.value,
+      id: Date.now(),
+      answered: false,
+      answer: '',
+      date: (new Date).toISOString(),
     }
-
-    const newQuestion = this.updatedQuestionAnswerOption
-      ? {
-        ...this.editQuestionForm.value,
-        id: Date.now(),
-        answered: false,
-        answer: '',
-        date: (new Date).toISOString(),
-        answerOptions: answerOptions,
-      }
-      : {
-        ...this.editQuestionForm.value,
-        id: Date.now(),
-        answered: false,
-        answer: '',
-        date: (new Date).toISOString(),
-      }
 
     this.testService.allQuestion = this.testService.allQuestion
       .map((item) => this.editableQuestion.id === item.id ? newQuestion : item)
 
     console.log(newQuestion)
-    this.route.navigate(['/']);
-  } */
-
-  /* selectType(event: any): void {
-    this.updatedQuestionType = event.target.value;
-    this.updatedQuestionAnswerOption = this.allTypes
-      .find((item) => this.updatedQuestionType === item.name)?.constAnswerOptions;
-    this.editableQuestionAnswerOptions = true;
-  } */
+    this.path.navigate(['/']);
+  }
 
   get answerOptions(): FormArray {
     return this.questionForm.get('answerOptions') as FormArray;

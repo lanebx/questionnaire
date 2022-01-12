@@ -3,7 +3,7 @@
     {{ pageTitle }}
   </h1>
 
-  <div *ngIf="(this.testService.statusEditCreate === 'edit') && (!editableQuestion)" class="warning">
+  <div *ngIf="!checkId && id" class="warning">
     Go back to select an item to change
   </div>
 
@@ -11,11 +11,11 @@
     Go back
   </button>
 
-  <div class="container" *ngIf="!((this.testService.statusEditCreate === 'edit') && (!editableQuestion))">
+  <div class="container">
     <form
       [formGroup]="questionForm"
       class="form"
-    > <!-- (ngSubmit)="onSubmit()" -->
+    >
       <label class="label">
         <div>
           Edit question:
@@ -40,15 +40,11 @@
 
       <div [ngSwitch]="type">
         <ng-template ngSwitchCase="Single">
-          {{ type }}
+          <app-single-question></app-single-question>
         </ng-template>
 
         <ng-template ngSwitchCase="Multiple">
-          {{ type }}
-
-          <div>
             <app-multiple-question></app-multiple-question>
-          </div>
         </ng-template>
 
         <ng-template ngSwitchCase="Open">
@@ -68,49 +64,3 @@
     </form>
   </div>
 </div>
-
-<!--  для новых answer options
-
-  <div
-    *ngIf="selelectedAnswerOptions"
-    class="form__group-container"
-  >
-    <div
-      formArrayName="answerOptions"
-      *ngFor="let coise of answerOptions.controls;
-      let i=index"
-      class="form__group"
-    >
-      <div class="form__hobby-group">
-        <div class="">
-          Enter answers to the question:
-        </div>
-        <div class="input-container">
-          <input
-            [formControlName]="i"
-            type="text"
-            placeholder="Your answer:"
-            class="form__input-hobby input"
-          >
-          <button
-            type="button"
-            id="remove"
-            (click)="removeChoice(i)"
-            class="button button-remove input-container__button"
-          >
-            X
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <button
-      type="button"
-      (click)="addChoice()"
-      class="button button-add"
-    >
-      Add answer
-    </button>
-  </div>
-
- -->

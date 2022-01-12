@@ -10,7 +10,8 @@ import { QuestionManagementPageComponent } from './question-management-page/ques
 const routes: Routes = [
   { path: 'wiev', component: ListsQuestionsPageComponent},
   { path: '', component: QuestionManagementPageComponent},
-  { path: 'question', component: QuestionEditCreateComponent }
+  { path: 'create', component: QuestionEditCreateComponent, data: { status: 'create' } },
+  { path: 'edit/:id', component: QuestionEditCreateComponent, data: { status: 'edit' } },
 ];
 
 @NgModule({

@@ -10,8 +10,7 @@
 
       <div
         formArrayName="answerOptions"
-        *ngFor="let choise of answerOptions.value;
-        let i=index"
+        *ngFor="let choise of answerOptions.controls; let i=index"
         class="form__group"
       >
         <div class="form__hobby-group">
@@ -21,13 +20,12 @@
               type="text"
               placeholder="Your answer:"
               class="form__input-hobby input"
-              (blur)="onBlur()"
-              [value]="choise"
+              
             >
             <button
               type="button"
-              id="remove"
               class="button button-remove input-container__button"
+              (click)="removeChoice()"
             >
               X
             </button>
@@ -38,7 +36,7 @@
       <button
         type="button"
         class="button button-add"
-        
+        (click)="addChoice()"
       >
         Add answer
       </button>

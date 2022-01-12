@@ -8,7 +8,6 @@ import { TestService } from '../shared/services/Question.service';
   styleUrls: ['./multiple-question.component.scss']
 })
 export class MultipleQuestionComponent implements OnInit {
-
   constructor (
     private testService: TestService,
     private fb: FormBuilder
@@ -20,8 +19,6 @@ export class MultipleQuestionComponent implements OnInit {
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
     })
-
-    console.log(this.answerOptions)
   }
 
   onBlur() {
@@ -29,14 +26,10 @@ export class MultipleQuestionComponent implements OnInit {
     console.log(this.testService.changeAnswerOptions)
   }
 
-  get answerOptions(): FormArray {
-    return this.formAnswerOptions.get('answerOptions') as FormArray;
-  }
-
   addChoice(): void {
     if (this.answerOptions.value.every((item: any) => item.length >= 1)) {
       this.answerOptions.push(this.fb.control(''))
-    } 
+    }
   }
 
   removeChoice(index: number) : void {
@@ -44,4 +37,12 @@ export class MultipleQuestionComponent implements OnInit {
       this.answerOptions.removeAt(index);
     }
   }
+
+  get answerOptions(): FormArray {
+    return this.formAnswerOptions.get('answerOptions') as FormArray;
+  }
+
+  identify(index, item){
+    return item; 
+ }
 }

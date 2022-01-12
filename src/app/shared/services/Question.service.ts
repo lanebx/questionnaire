@@ -18,8 +18,6 @@ export class TestService {
   constructor() { }
 
   questionForEdit?: Question;
-
-  statusEditCreate: string = 'edit';
   changeAnswerOptions: string[] = [''];
 
   allQuestion: Question[] = [

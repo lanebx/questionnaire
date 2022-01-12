@@ -32,7 +32,6 @@ export class QuestionManagementPageComponent {
 
   getQuestionForEditing(question: Question) {
     this.testService.questionForEdit = question;
-    this.testService.statusEditCreate = 'edit'
-    this.route.navigate(['/question']);
+    this.route.navigate(['/edit', question.id]);
   }
 }
