@@ -19,6 +19,9 @@ export class TestService {
 
   questionForEdit?: Question;
 
+  statusEditCreate: string = 'edit';
+  changeAnswerOptions: string[] = [''];
+
   allQuestion: Question[] = [
     { id: 1641889825774, question: 'Question 1', answered: true, answer: 'Answer 1', type: 'Open', date: '2019-01-26T13:51:50.417Z', answerOptions: '' },
     { id: 1641889825775, question: 'Question 2', answered: false, answer: '', type: 'Single', date: '2018-01-26T13:51:50.417Z', answerOptions: '' },
@@ -28,8 +31,8 @@ export class TestService {
   ];
 
   allTypes = [
-    { id: 1, name: 'Single', constAnswerOptions: false },
-    { id: 2, name: 'Multiple', constAnswerOptions: false },
-    { id: 3, name: 'Open', answerOptions: '', constAnswerOptions: true },
+    { id: 1, name: 'Single' },
+    { id: 2, name: 'Multiple' },
+    { id: 3, name: 'Open' },
   ];
 }

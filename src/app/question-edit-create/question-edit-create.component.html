@@ -1,0 +1,116 @@
+<div class="question-edit-create-page">
+  <h1 class="question-edit-create-page__title title">
+    {{ pageTitle }}
+  </h1>
+
+  <div *ngIf="(this.testService.statusEditCreate === 'edit') && (!editableQuestion)" class="warning">
+    Go back to select an item to change
+  </div>
+
+  <button class="button" routerLink="/" (click)="this.testService.questionForEdit = undefined">
+    Go back
+  </button>
+
+  <div class="container" *ngIf="!((this.testService.statusEditCreate === 'edit') && (!editableQuestion))">
+    <form
+      [formGroup]="questionForm"
+      class="form"
+    > <!-- (ngSubmit)="onSubmit()" -->
+      <label class="label">
+        <div>
+          Edit question:
+        </div>
+        <input formControlName="question" class="input">
+      </label>
+
+      <label class="label">
+        <div>
+          Edit type of question:
+        </div>
+
+        <select
+          formControlName="type"
+          class="form__select input"
+        >
+          <option *ngFor="let type of allTypes" [value]="type.name">
+            {{ type.name }}
+          </option>
+        </select>
+      </label>
+
+      <div [ngSwitch]="type">
+        <ng-template ngSwitchCase="Single">
+          {{ type }}
+        </ng-template>
+
+        <ng-template ngSwitchCase="Multiple">
+          {{ type }}
+
+          <div>
+            <app-multiple-question></app-multiple-question>
+          </div>
+        </ng-template>
+
+        <ng-template ngSwitchCase="Open">
+          {{ type }}
+        </ng-template>
+
+        <ng-template ngSwitchDefault>
+          <div class="warning">
+            Select new question type
+          </div>
+        </ng-template>
+      </div>
+
+      <button type="submit" class="button button-submit">
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
+
+<!--  для новых answer options
+
+  <div
+    *ngIf="selelectedAnswerOptions"
+    class="form__group-container"
+  >
+    <div
+      formArrayName="answerOptions"
+      *ngFor="let coise of answerOptions.controls;
+      let i=index"
+      class="form__group"
+    >
+      <div class="form__hobby-group">
+        <div class="">
+          Enter answers to the question:
+        </div>
+        <div class="input-container">
+          <input
+            [formControlName]="i"
+            type="text"
+            placeholder="Your answer:"
+            class="form__input-hobby input"
+          >
+          <button
+            type="button"
+            id="remove"
+            (click)="removeChoice(i)"
+            class="button button-remove input-container__button"
+          >
+            X
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <button
+      type="button"
+      (click)="addChoice()"
+      class="button button-add"
+    >
+      Add answer
+    </button>
+  </div>
+
+ -->

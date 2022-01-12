@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./question-management-page.component.scss']
 })
 export class QuestionManagementPageComponent {
-  constructor(private testService: TestService, private route:Router) { }
+  constructor(public testService: TestService, private route:Router) { }
 
   filter: 'all' | 'answered' | 'notAnswered' = 'all';
 
@@ -32,6 +32,7 @@ export class QuestionManagementPageComponent {
 
   getQuestionForEditing(question: Question) {
     this.testService.questionForEdit = question;
-    this.route.navigate(['/edit']);
+    this.testService.statusEditCreate = 'edit'
+    this.route.navigate(['/question']);
   }
 }

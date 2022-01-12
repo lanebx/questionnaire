@@ -76,3 +76,27 @@
 .warning {
   color:rgb(219, 68, 68);
 }
+
+.questions-list {
+  list-style: none;
+}
+
+.question-item {
+  margin-bottom: 10px;
+  padding: 5px;
+  box-shadow: 1px 1px 3px rgba(80, 80, 80, 0.37);
+
+  &__description {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: rgba(48, 37, 54, 0.8);
+  }
+
+  &__info-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    border-bottom: 1px solid rgba(80, 80, 80, 0.15);
+    padding-bottom: 5px;
+  }
+}

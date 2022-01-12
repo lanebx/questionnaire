@@ -1,0 +1,44 @@
+<div class="form__group-container">
+  <form
+    class="form__group"
+    [formGroup]="formAnswerOptions"
+  >
+    <div class="form__group-array-container">
+      <div class="label">
+        Enter answers to the question (2 and more):
+      </div>
+
+      <div
+        formArrayName="answerOptions"
+        *ngFor="let choise of answerOptions.value;
+        let i=index"
+        class="form__group"
+      >
+        <div class="form__hobby-group">
+          <div class="input-container">
+            <input
+              [formControlName]="i"
+              type="text"
+              placeholder="Your answer:"
+              class="form__input-hobby input"
+            >
+            <button
+              type="button"
+              id="remove"
+              class="button button-remove input-container__button"
+            >
+              X
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <button
+        type="button"
+        class="button button-add"
+      >
+        Add answer
+      </button>
+    </div>
+  </form>
+</div>

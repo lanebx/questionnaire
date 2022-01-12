@@ -1,1 +1,53 @@
-<p>lists-questions-page works!</p>
+<div class="list-question-page">
+  <h1 class="list-question-page__title title">
+    Questions and answers
+  </h1>
+
+  <button class="button" routerLink="/">
+    Go back
+  </button>
+
+  <div class="list-question-page-container">
+    <div class="list-question-page___answered">
+      <ul class="questions-list">
+        <li *ngFor="let quest of questions" class="question-item">
+          <div class="question-item__description">
+            {{ quest.question }}
+          </div>
+    
+          <div class="question-item__info-container">
+            <div class="question-item__type">
+              {{ quest.type }}
+            </div>
+    
+            <div class="question-item__date">
+              {{ quest.date | date : 'MMM d, y' }}
+            </div>
+          </div>
+
+        </li>
+      </ul>
+    </div>
+
+    <div class="list-question-page__unanswered">
+      <ul class="questions-list">
+        <li *ngFor="let quest of questions" class="question-item">
+          <div class="question-item__description">
+            {{ quest.question }}
+          </div>
+    
+          <div class="question-item__info-container">
+            <div class="question-item__type">
+              {{ quest.type }}
+            </div>
+    
+            <div class="question-item__date">
+              {{ quest.date | date : 'MMM d, y' }}
+            </div>
+          </div>
+    
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
