@@ -88,7 +88,7 @@ export class QuestionEditPageComponent implements OnInit {
   }
 
   removeChoice(index: number) : void {
-    if (this.answerOptions.value.length >= 2) {
+    if (this.answerOptions.value.length > 1) {
       this.answerOptions.removeAt(index);
     }
   }

@@ -73,7 +73,9 @@ export class QuestionPageComponent {
   }
 
   removeChoice(index: number) : void {
-    this.answerOptions.removeAt(index)
+    if (this.answerOptions.value.length > 1) {
+      this.answerOptions.removeAt(index);
+    }
   }
 
   get answerOptions(): FormArray {
