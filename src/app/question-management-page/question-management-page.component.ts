@@ -1,3 +1,4 @@
+import { Question } from './../shared/services/Question.service';
 import { TestService } from '../shared/services/Question.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
@@ -29,8 +30,8 @@ export class QuestionManagementPageComponent {
     this.testService.allQuestion = this.testService.allQuestion.filter((question) => idForDelete !== question.id)
   }
 
-  getIdForEditing(id: number) {
-    this.testService.indexForEdit = id;
+  getQuestionForEditing(question: Question) {
+    this.testService.questionForEdit = question;
     this.route.navigate(['/edit']);
   }
 }

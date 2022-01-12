@@ -17,40 +17,47 @@ export class QuestionEditPageComponent implements OnInit {
   ) { }
 
   editQuestionForm: FormGroup;
-  typeQuestion: string;
-  selelectedType;
-  selelectedAnswerOptions: boolean;
 
   allTypes = this.testService.allTypes.map((item) => ({...item}));
-
-  selectQuestion: Question = this.testService.allQuestion
-      .find(({ id }) => id === this.testService.indexForEdit);
-
-  chosedType: string = this.selectQuestion.type;
+  editableQuestion: Question = this.testService.questionForEdit;
+  editableQuestionAnswerOptions: boolean;
+  updatedQuestionAnswerOption: boolean = true;
+  updatedQuestionType: string = this.editableQuestion.type;
 
   ngOnInit(): void {
     this.initializeForm();
+
+    if (this.editableQuestion) {
+      this.editableQuestionAnswerOptions = this.allTypes.find((item) => this.editableQuestion.type === item.name)?.constAnswerOptions;
+    }
   }
 
   initializeForm() : void {
-    if (this.selectQuestion) {
+    if (this.editableQuestion) {
       this.editQuestionForm = this.fb.group({
-        question: new FormControl(this.selectQuestion.question, Validators.required),
-        type: new FormControl(this.selectQuestion.type, Validators.required),
+        question: new FormControl(this.editableQuestion.question, Validators.required),
+        type: new FormControl(this.editableQuestion.type, Validators.required),
         answerOptions: this.fb.array([this.fb.control('', Validators.required)])
       });
     }
   }
 
   onSubmit() {
-    const newQuestion = this.selelectedType.constAnswerOptions
+    const selelectedType =  this.allTypes.find((item) => this.updatedQuestionType === item.name);
+    let answerOptions;
+
+    if(selelectedType) {
+      answerOptions = selelectedType.answerOptions;
+    }
+
+    const newQuestion = this.updatedQuestionAnswerOption
       ? {
         ...this.editQuestionForm.value,
         id: Date.now(),
         answered: false,
         answer: '',
         date: (new Date).toISOString(),
-        answerOptions: this.selelectedType.answerOptions,
+        answerOptions: answerOptions,
       }
       : {
         ...this.editQuestionForm.value,
@@ -61,16 +68,17 @@ export class QuestionEditPageComponent implements OnInit {
       }
 
     this.testService.allQuestion = this.testService.allQuestion
-      .map((item) => this.selectQuestion.id === item.id ? newQuestion : item)
+      .map((item) => this.editableQuestion.id === item.id ? newQuestion : item)
 
     console.log(newQuestion)
     this.route.navigate(['/']);
   }
 
   selectType(event: any): void {
-    this.typeQuestion = event.target.value;
-    this.selelectedType = this.allTypes.find(({ name }) => name === this.typeQuestion)
-    this.selelectedAnswerOptions = !this.selelectedType.constAnswerOptions
+    this.updatedQuestionType = event.target.value;
+    this.updatedQuestionAnswerOption = this.allTypes
+      .find((item) => this.updatedQuestionType === item.name)?.constAnswerOptions;
+    this.editableQuestionAnswerOptions = true;
   }
 
   addChoice(): void {
@@ -80,7 +88,9 @@ export class QuestionEditPageComponent implements OnInit {
   }
 
   removeChoice(index: number) : void {
-    this.answerOptions.removeAt(index);
+    if (this.answerOptions.value.length >= 2) {
+      this.answerOptions.removeAt(index);
+    }
   }
 
   get answerOptions(): FormArray {

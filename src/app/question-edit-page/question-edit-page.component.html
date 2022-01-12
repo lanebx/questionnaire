@@ -3,7 +3,7 @@
     Edit question
   </h1>
 
-  <div *ngIf="!this.testService.indexForEdit" class="warning">
+  <div *ngIf="!editableQuestion" class="warning">
     Go back to select an item to change
   </div>
 
@@ -11,7 +11,7 @@
     Go back
   </button>
 
-  <div class="container" *ngIf="this.testService.indexForEdit">
+  <div class="container" *ngIf="editableQuestion">
     <form
       [formGroup]="editQuestionForm"
       (ngSubmit)="onSubmit()"
@@ -41,7 +41,7 @@
       </label>
 
       <div
-        *ngIf="selelectedAnswerOptions"
+        *ngIf="!editableQuestionAnswerOptions || !updatedQuestionAnswerOption"
         class="form__group-container"
       >
         <div
