@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { DataInfo } from '../question-edit-create/question-edit-create.component';
 import { TestService } from '../shared/services/Question.service';
 
 @Component({
@@ -10,12 +12,18 @@ import { TestService } from '../shared/services/Question.service';
 export class MultipleQuestionComponent implements OnInit {
   constructor (
     private testService: TestService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
   ) { }
 
   formAnswerOptions: FormGroup;
+  dataInfo: DataInfo;
 
   ngOnInit(): void {
+    this.route
+      .data
+      .subscribe(data => this.dataInfo = data as DataInfo);
+
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
     })

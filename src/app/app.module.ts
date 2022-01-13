@@ -4,7 +4,7 @@ import { AppComponent } from './app.component';
 import { QuestionManagementPageComponent } from './question-management-page/question-management-page.component';
 import { ListsQuestionsPageComponent } from './lists-questions-page/lists-questions-page.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { QuestionEditCreateComponent } from './question-edit-create/question-edit-create.component';
 import { OpenQuestionComponent } from './open-question/open-question.component';
 import { MultipleQuestionComponent } from './multiple-question/multiple-question.component';
@@ -24,6 +24,7 @@ import { SingleQuestionComponent } from './single-question/single-question.compo
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [],

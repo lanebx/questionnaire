@@ -1,1 +1,7 @@
+<div *ngIf="dataInfo.status === 'wiev'">
+  <input class="input" [ngModel]="item.answer" (ngModelChange)="onChange($event)"/>
 
+  <button type="button" (click)="onClick()" class="button-submit button">
+    Save
+  </button>
+</div>

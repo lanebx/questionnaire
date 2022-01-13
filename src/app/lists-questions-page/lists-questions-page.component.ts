@@ -1,6 +1,7 @@
 import { Question } from './../shared/services/Question.service';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../shared/services/Question.service';
 
 @Component({
@@ -9,18 +10,36 @@ import { TestService } from '../shared/services/Question.service';
   styleUrls: ['./lists-questions-page.component.scss']
 })
 export class ListsQuestionsPageComponent implements OnInit {
-  newQuestions: Question[] = this.testService.allQuestion.map(a => ({...a}))
+  formGroup: FormGroup;
+  questionsList: Question[];
 
   ngOnInit(): void {
+    console.log('init wiev')
+    this.questionsList = this.testService.allQuestion;
+
+    this.formGroup = new FormGroup({
+      answer: new FormControl('', Validators.required)
+     });
   }
 
-  constructor(private testService: TestService, private route:Router) { }
+  constructor(
+    private testService: TestService,
+    private route: ActivatedRoute,
+    private path: Router,
+  ) { }
 
   get answeredQuestions() {
-    return this.newQuestions.filter(item => item.answered)
+    const answeredQuestions = this.questionsList.filter(item => item.answered);
+    answeredQuestions.sort((a, b) => <any>new Date(b.dateOfAnswer) - <any>new Date(a.dateOfAnswer));
+
+    return answeredQuestions;
   }
 
   get unansweredQuestions() {
-    return this.newQuestions.filter(item => !item.answered)
+    const unansweredQuestions = this.questionsList.filter(item => !item.answered);
+    unansweredQuestions.sort((a, b) => <any>new Date(b.date) - <any>new Date(a.date));
+
+    return unansweredQuestions;
   }
+
 }

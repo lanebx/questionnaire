@@ -35,8 +35,8 @@ export class QuestionEditCreateComponent {
 
   ngOnInit(): void {
     this.route
-    .data
-    .subscribe(data => this.dataInfo = data as DataInfo);
+      .data
+      .subscribe(data => this.dataInfo = data as DataInfo);
 
     if (this.dataInfo.status === 'edit') {
       this.route.paramMap.pipe(
