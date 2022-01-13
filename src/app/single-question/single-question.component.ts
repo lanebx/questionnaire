@@ -23,7 +23,6 @@ export class SingleQuestionComponent implements OnInit {
 
   onBlur() {
     this.testService.changeAnswerOptions = this.answerOptions.value;
-    console.log(this.testService.changeAnswerOptions)
   }
 
   addChoice(): void {

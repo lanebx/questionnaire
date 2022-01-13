@@ -23,7 +23,6 @@ export class MultipleQuestionComponent implements OnInit {
 
   onBlur() {
     this.testService.changeAnswerOptions = this.answerOptions.value;
-    console.log(this.testService.changeAnswerOptions)
   }
 
   addChoice(): void {
@@ -41,8 +40,4 @@ export class MultipleQuestionComponent implements OnInit {
   get answerOptions(): FormArray {
     return this.formAnswerOptions.get('answerOptions') as FormArray;
   }
-
-  identify(index, item){
-    return item; 
- }
 }
