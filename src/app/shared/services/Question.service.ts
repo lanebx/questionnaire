@@ -17,7 +17,7 @@ export class TestService {
 
   constructor() { }
 
-  changeAnswerOptions: string[] = [''];
+  changeAnswerOptions: string[] = [];
 
   allQuestion: Question[] = [
     { id: 1641889825774, question: 'Question 1', answered: true, answer: 'Answer 1', type: 'Open', date: '2019-01-26T13:51:50.417Z', answerOptions: '' },

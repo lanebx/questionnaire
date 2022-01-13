@@ -15,6 +15,7 @@
     <form
       [formGroup]="questionForm"
       class="form"
+      (ngSubmit)="onSubmit()"
     >
       <label class="label">
         <div>
@@ -48,7 +49,7 @@
         </ng-template>
 
         <ng-template ngSwitchCase="Open">
-          {{ type }}
+          <app-open-question></app-open-question>
         </ng-template>
 
         <ng-template ngSwitchDefault>

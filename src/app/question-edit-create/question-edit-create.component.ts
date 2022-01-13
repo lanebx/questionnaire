@@ -26,7 +26,7 @@ export class QuestionEditCreateComponent {
 
   allTypes = this.testService.allTypes.map((item) => ({...item}));
   editableQuestion: Question;
-  type: string = 'Open';
+  type: string;
   id: number | undefined;
   checkId: boolean = true;
   dataInfo: DataInfo;
@@ -46,6 +46,7 @@ export class QuestionEditCreateComponent {
       this.checkId = this.testService.allQuestion.some(item => {
         if (item.id === this.id) {
           this.editableQuestion = item;
+          this.type = item.type;
           this.pageTitle = 'Edit question';
           this.initializeEditForm()
         }
@@ -60,7 +61,6 @@ export class QuestionEditCreateComponent {
     this.questionForm.get('type').valueChanges.subscribe(val => {
       this.type = val;
     })
-
   }
 
   initializeEditForm() : void {
@@ -80,18 +80,29 @@ export class QuestionEditCreateComponent {
   }
 
   onSubmit() {
-    const newQuestion = {
+    let newQuestion = {
       ...this.questionForm.value,
       id: Date.now(),
       answered: false,
       answer: '',
       date: (new Date).toISOString(),
+      answerOptions: this.testService.changeAnswerOptions,
     }
 
-    this.testService.allQuestion = this.testService.allQuestion
+    if (this.dataInfo.status === 'edit') {
+      newQuestion = {
+        ...newQuestion,
+        id: this.editableQuestion.id,
+        date: this.editableQuestion.date,
+      }
+      this.testService.allQuestion = this.testService.allQuestion
       .map((item) => this.editableQuestion.id === item.id ? newQuestion : item)
+    } else {
+      this.testService.allQuestion.push(newQuestion);
+    }
 
     console.log(newQuestion)
+    this.testService.changeAnswerOptions = [];
     this.path.navigate(['/']);
   }
 
