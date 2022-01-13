@@ -11,7 +11,6 @@ import { Question, TestService } from '../shared/services/Question.service';
 })
 export class SingleQuestionComponent implements OnInit {
   constructor (
-    private testService: TestService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
   ) { }
@@ -19,16 +18,6 @@ export class SingleQuestionComponent implements OnInit {
   @Input() item: Question;
   @Output() itemChange = new EventEmitter();
   @Output() blur = new EventEmitter();
-
-  onChange(model: any) {
-    this.item.answer = model.path[1].innerText;
-    this.itemChange.emit(model);
-  }
-
-  onClick() {
-    this.item.answered = true;
-    this.item.dateOfAnswer = (new Date).toISOString();
-  }
 
   formAnswerOptions: FormGroup;
   dataInfo: DataInfo;
@@ -41,6 +30,16 @@ export class SingleQuestionComponent implements OnInit {
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
     })
+  }
+
+  onChange(model: any) {
+    this.item.answer = model.path[1].innerText;
+    this.itemChange.emit(model);
+  }
+
+  onClick() {
+    this.item.answered = true;
+    this.item.dateOfAnswer = (new Date).toISOString();
   }
 
   onBlur() {

@@ -1,5 +1,7 @@
 <div class="question-management-page">
-  <h1 class="question-management-page__title title">Question List</h1>
+  <h1 class="question-management-page__title title">
+    Question List
+  </h1>
 
   <div class="button-container">
     <button class="button button-create" routerLink="/create">
@@ -7,7 +9,7 @@
     </button>
 
     <button class="button button-create" routerLink="/view">
-      viewing all question
+      Viewing all question
     </button>
   </div>
 
@@ -28,11 +30,17 @@
       </div>
 
       <div class="button-container">
-        <button (click)="getQuestionForEditing(quest.id)" class="button button-edit">
+        <button
+          (click)="getQuestionForEditing(quest.id)"
+          class="button button-edit"
+        >
           Edit
         </button>
 
-        <button (click)="removeFromList(quest.id)" class="button button-remove">
+        <button
+          (click)="removeFromList(quest.id)"
+          class="button button-remove"
+        >
           Remove
         </button>
       </div>
