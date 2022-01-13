@@ -17,7 +17,6 @@ export class TestService {
 
   constructor() { }
 
-  questionForEdit?: Question;
   changeAnswerOptions: string[] = [''];
 
   allQuestion: Question[] = [

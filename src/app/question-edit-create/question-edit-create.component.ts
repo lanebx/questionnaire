@@ -5,6 +5,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Question, TestService } from '../shared/services/Question.service';
 import { switchMap } from 'rxjs/operators';
 
+export interface DataInfo {
+  status: string;
+}
+
 @Component({
   selector: 'app-question-edit-create',
   templateUrl: './question-edit-create.component.html',
@@ -25,31 +29,37 @@ export class QuestionEditCreateComponent {
   type: string = 'Open';
   id: number | undefined;
   checkId: boolean = true;
+  dataInfo: DataInfo;
   
-  pageTitle: string = 'Edit question';
+  pageTitle: string;
 
   ngOnInit(): void {
-    if (this.testService.questionForEdit) {
-      this.editableQuestion = this.testService.questionForEdit;
-      this.initializeEditForm()
+    this.route
+    .data
+    .subscribe(data => this.dataInfo = data as DataInfo);
 
+    if (this.dataInfo.status === 'edit') {
       this.route.paramMap.pipe(
         switchMap(params => params.getAll('id'))
       ).subscribe(data => this.id = +data);
 
+      this.checkId = this.testService.allQuestion.some(item => {
+        if (item.id === this.id) {
+          this.editableQuestion = item;
+          this.pageTitle = 'Edit question';
+          this.initializeEditForm()
+        }
+
+        return item.id === this.id;
+      });
     } else {
+      this.pageTitle = 'Create question';
       this.initializeCreateForm()
     }
 
     this.questionForm.get('type').valueChanges.subscribe(val => {
       this.type = val;
     })
-
-    this.checkId = this.testService.allQuestion.some(item => {
-      console.log(item.id, this.id);
-
-      return item.id === this.id;
-    });
 
   }
 

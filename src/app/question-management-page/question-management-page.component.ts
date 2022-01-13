@@ -30,8 +30,7 @@ export class QuestionManagementPageComponent {
     this.testService.allQuestion = this.testService.allQuestion.filter((question) => idForDelete !== question.id)
   }
 
-  getQuestionForEditing(question: Question) {
-    this.testService.questionForEdit = question;
-    this.route.navigate(['/edit', question.id]);
+  getQuestionForEditing(id: number) {
+    this.route.navigate(['/edit', id]);
   }
 }
