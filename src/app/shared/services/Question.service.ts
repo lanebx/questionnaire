@@ -18,8 +18,6 @@ export class TestService {
 
   constructor() { }
 
-  changeAnswerOptions: string[] = [];
-
   allQuestion: Question[] = [
     { id: 1641889825774, question: 'Question 1', answered: true, answer: 'Answer 1', type: 'Open', date: '2019-01-26T13:51:50.417Z', answerOptions: [], dateOfAnswer: '2019-01-26T13:51:50.417Z' },
     { id: 1641889825775, question: 'Question 2', answered: false, answer: '', type: 'Single', date: '2018-01-26T13:51:50.417Z', answerOptions: ['add 3', 'add 4'], dateOfAnswer: '' },

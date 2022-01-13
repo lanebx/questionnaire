@@ -8,7 +8,7 @@ import { QuestionEditCreateComponent } from './question-edit-create/question-edi
 import { QuestionManagementPageComponent } from './question-management-page/question-management-page.component';
 
 const routes: Routes = [
-  { path: 'wiev', component: ListsQuestionsPageComponent, data: { status: 'wiev' } },
+  { path: 'view', component: ListsQuestionsPageComponent, data: { status: 'view' } },
   { path: '', component: QuestionManagementPageComponent},
   { path: 'create', component: QuestionEditCreateComponent, data: { status: 'create' } },
   { path: 'edit/:id', component: QuestionEditCreateComponent, data: { status: 'edit' } },

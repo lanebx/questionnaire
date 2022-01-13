@@ -1,4 +1,4 @@
-<div class="form__group-container" *ngIf="dataInfo.status != 'wiev'">
+<div class="form__group-container" *ngIf="dataInfo.status != 'view'">
   <form
     class="form__group"
     [formGroup]="formAnswerOptions"
@@ -45,7 +45,7 @@
 </div>
 
 
-<div class="question-item__answerOptions" *ngIf="dataInfo.status === 'wiev'">
+<div class="question-item__answerOptions" *ngIf="dataInfo.status === 'view'">
   <div class="label">
     Enter answer:
   </div>

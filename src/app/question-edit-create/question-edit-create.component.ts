@@ -51,7 +51,7 @@ export class QuestionEditCreateComponent {
           this.editableQuestion = item;
           this.type = item.type;
           this.pageTitle = 'Edit question';
-          this.initializeEditForm()
+          this.initializeEditForm();
         }
 
         return item.id === this.id;
@@ -89,7 +89,7 @@ export class QuestionEditCreateComponent {
       answered: false,
       answer: '',
       date: (new Date).toISOString(),
-      answerOptions: this.testService.changeAnswerOptions,
+      answerOptions: this.answerOptionArray,
     }
 
     if (this.dataInfo.status === 'edit') {
@@ -105,7 +105,6 @@ export class QuestionEditCreateComponent {
     }
 
     console.log(newQuestion)
-    this.testService.changeAnswerOptions = [];
     this.path.navigate(['/']);
   }
 

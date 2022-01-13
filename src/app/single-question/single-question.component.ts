@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { TestService } from '../shared/services/Question.service';
+import { ActivatedRoute } from '@angular/router';
+import { DataInfo } from '../question-edit-create/question-edit-create.component';
+import { Question, TestService } from '../shared/services/Question.service';
 
 @Component({
   selector: 'app-single-question',
@@ -10,19 +12,39 @@ import { TestService } from '../shared/services/Question.service';
 export class SingleQuestionComponent implements OnInit {
   constructor (
     private testService: TestService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
   ) { }
 
+  @Input() item: Question;
+  @Output() itemChange = new EventEmitter();
+  @Output() blur = new EventEmitter();
+
+  onChange(model: any) {
+    this.item.answer = model.path[1].innerText;
+    this.itemChange.emit(model);
+  }
+
+  onClick() {
+    this.item.answered = true;
+    this.item.dateOfAnswer = (new Date).toISOString();
+  }
+
   formAnswerOptions: FormGroup;
+  dataInfo: DataInfo;
 
   ngOnInit(): void {
+    this.route
+      .data
+      .subscribe(data => this.dataInfo = data as DataInfo);
+
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
     })
   }
 
   onBlur() {
-    this.testService.changeAnswerOptions = this.answerOptions.value;
+    this.blur.emit(this.answerOptions.value);
   }
 
   addChoice(): void {
@@ -40,8 +62,4 @@ export class SingleQuestionComponent implements OnInit {
   get answerOptions(): FormArray {
     return this.formAnswerOptions.get('answerOptions') as FormArray;
   }
-
-  identify(index, item){
-    return item; 
- }
 }

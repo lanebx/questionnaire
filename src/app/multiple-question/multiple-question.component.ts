@@ -44,7 +44,6 @@ export class MultipleQuestionComponent implements OnInit {
   }
 
   onBlur() {
-    this.testService.changeAnswerOptions = this.answerOptions.value;
     this.blur.emit(this.answerOptions.value);
   }
 

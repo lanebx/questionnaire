@@ -14,7 +14,7 @@ export class ListsQuestionsPageComponent implements OnInit {
   questionsList: Question[];
 
   ngOnInit(): void {
-    console.log('init wiev')
+    console.log('init view')
     this.questionsList = this.testService.allQuestion;
 
     this.formGroup = new FormGroup({
