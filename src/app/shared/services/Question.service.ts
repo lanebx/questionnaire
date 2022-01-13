@@ -11,12 +11,6 @@ export interface Question {
   answerOptions: string[];
 }
 
-/* export enum allTypes {
-  Single = 1,
-  Multiple = 2,
-  Open = 3,
-}; */
-
 @Injectable({
   providedIn: 'root',
 })

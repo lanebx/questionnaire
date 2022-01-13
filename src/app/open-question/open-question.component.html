@@ -1,5 +1,14 @@
 <div *ngIf="dataInfo.status === 'wiev'">
-  <input class="input" [ngModel]="item.answer" (ngModelChange)="onChange($event)"/>
+  <div class="label">
+    Enter answer:
+  </div>
+
+  <textarea
+    class="input textarea"
+    [ngModel]="item.answer"
+    (ngModelChange)="onChange($event)"
+    maxlength="255"
+  ></textarea>
 
   <button type="button" (click)="onClick()" class="button-submit button">
     Save

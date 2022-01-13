@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DataInfo } from '../question-edit-create/question-edit-create.component';
-import { TestService } from '../shared/services/Question.service';
+import { Question, TestService } from '../shared/services/Question.service';
 
 @Component({
   selector: 'app-multiple-question',
@@ -15,6 +15,20 @@ export class MultipleQuestionComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
   ) { }
+
+  @Input() item: Question;
+  @Output() itemChange = new EventEmitter();
+  @Output() blur = new EventEmitter();
+
+  onChange(model: any) {
+    this.item.answer = model.path[1].innerText;
+    this.itemChange.emit(model);
+  }
+
+  onClick() {
+    this.item.answered = true;
+    this.item.dateOfAnswer = (new Date).toISOString();
+  }
 
   formAnswerOptions: FormGroup;
   dataInfo: DataInfo;
@@ -31,6 +45,7 @@ export class MultipleQuestionComponent implements OnInit {
 
   onBlur() {
     this.testService.changeAnswerOptions = this.answerOptions.value;
+    this.blur.emit(this.answerOptions.value);
   }
 
   addChoice(): void {

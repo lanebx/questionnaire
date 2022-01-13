@@ -7,7 +7,6 @@
     Go back
   </button>
 
-
   <div class="list-question-page-container">
     <div class="list-question-page__unanswered list-container">
       <h3 class="list-question-page__sub-title sub-title">
@@ -24,15 +23,11 @@
             </ng-template>
     
             <ng-template ngSwitchCase="Multiple">
+              <app-multiple-question [item]="quest"></app-multiple-question>
             </ng-template>
     
             <ng-template ngSwitchCase="Open">
-              <div class="label">
-                Enter answer:
-              </div>
-                <app-open-question
-                  [item]="quest"
-                ></app-open-question>
+                <app-open-question [item]="quest"></app-open-question>
             </ng-template>
     
             <ng-template ngSwitchDefault>
@@ -41,7 +36,6 @@
               </div>
             </ng-template>
           </div>
-    
         </li>
       </ul>
     </div>
@@ -57,23 +51,17 @@
             {{ quest.question }}
           </div>
 
-          <div class="question-item__answer">
-            {{ quest.answer }}
+          <div class="answer-block">
+            <div class="answer-block__label">
+              Your answer:
+            </div>
+  
+            <div class="answer-block__answer">
+              {{ quest.answer }}
+            </div>
           </div>
-
         </li>
       </ul>
     </div>
   </div>
 </div>
-
-<!-- 
-            <div class="question-item__answerOptions">
-            <ul class="answer__list">
-              <li *ngFor="let answer of quest.answerOptions" class="answer__item">
-                <input type="radio" name="chickenEgg" value="{{answer}}" ng-model="formData.chickenEgg">
-                {{ answer }}
-              </li>
-            </ul>
-          </div>
- -->

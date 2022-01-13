@@ -45,7 +45,7 @@
         </ng-template>
 
         <ng-template ngSwitchCase="Multiple">
-            <app-multiple-question></app-multiple-question>
+            <app-multiple-question (blur)=onBlur($event)></app-multiple-question>
         </ng-template>
 
         <ng-template ngSwitchCase="Open">

@@ -11,7 +11,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class OpenQuestionComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
-    private path: Router,
   ) {}
 
   @Input() item: Question;

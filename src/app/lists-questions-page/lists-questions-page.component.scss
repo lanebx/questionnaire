@@ -9,3 +9,12 @@
     width: 50%;
   }
 }
+
+.answer-block {
+  border: 1px solid rgba(77, 77, 77, 0.356);
+
+  &__answer {
+    font-weight: bold;
+    margin-top: 10px;
+  }
+}

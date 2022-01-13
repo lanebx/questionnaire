@@ -1,4 +1,4 @@
-<div class="form__group-container">
+<div class="form__group-container" *ngIf="dataInfo.status != 'wiev'">
   <form
     class="form__group"
     [formGroup]="formAnswerOptions"
@@ -25,7 +25,7 @@
             <button
               type="button"
               class="button button-remove input-container__button"
-              (click)="removeChoice()"
+              (click)="removeChoice(i)"
             >
               X
             </button>
@@ -42,4 +42,24 @@
       </button>
     </div>
   </form>
+</div>
+
+
+<div class="question-item__answerOptions" *ngIf="dataInfo.status === 'wiev'">
+  <div class="label">
+    Enter answer:
+  </div>
+
+  <ul class="answer-list">
+    <li *ngFor="let option of item.answerOptions">
+      <label>
+        {{ option }}
+        <input type="radio" value="{{option}}" name="answer" (click)="onChange($event)">
+      </label>
+    </li>
+  </ul>
+
+  <button type="button" (click)="onClick()" class="button-submit button">
+    Save
+  </button>
 </div>

@@ -30,10 +30,13 @@ export class QuestionEditCreateComponent {
   id: number | undefined;
   checkId: boolean = true;
   dataInfo: DataInfo;
+  answerOptionArray: string[];
   
   pageTitle: string;
 
   ngOnInit(): void {
+    // this.route.snapshot.data.dataInfo
+    // this.route.snapshot.params.id
     this.route
       .data
       .subscribe(data => this.dataInfo = data as DataInfo);
@@ -108,6 +111,11 @@ export class QuestionEditCreateComponent {
 
   get answerOptions(): FormArray {
     return this.questionForm.get('answerOptions') as FormArray;
+  }
+
+  onBlur(answerOption: string[]): void {
+    this.answerOptionArray = answerOption;
+    console.log(answerOption);
   }
 }
 
