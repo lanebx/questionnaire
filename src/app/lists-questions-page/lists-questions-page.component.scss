@@ -2,5 +2,10 @@
   &-container {
     display: flex;
     justify-content: space-between;
+    gap: 15px
+  }
+
+  .list-container {
+    width: 50%;
   }
 }

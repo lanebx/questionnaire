@@ -7,10 +7,14 @@
     Go back
   </button>
 
+
   <div class="list-question-page-container">
-    <div class="list-question-page___answered">
+    <div class="list-question-page__unanswered list-container">
+      <h3 class="list-question-page__sub-title sub-title">
+        Unanswered question
+      </h3>
       <ul class="questions-list">
-        <li *ngFor="let quest of questions" class="question-item">
+        <li *ngFor="let quest of unansweredQuestions" class="question-item">
           <div class="question-item__description">
             {{ quest.question }}
           </div>
@@ -24,14 +28,17 @@
               {{ quest.date | date : 'MMM d, y' }}
             </div>
           </div>
-
+    
         </li>
       </ul>
     </div>
 
-    <div class="list-question-page__unanswered">
+    <div class="list-question-page___answered list-container">
+      <h3 class="list-question-page__sub-title sub-title">
+        Answered question
+      </h3>
       <ul class="questions-list">
-        <li *ngFor="let quest of questions" class="question-item">
+        <li *ngFor="let quest of answeredQuestions" class="question-item">
           <div class="question-item__description">
             {{ quest.question }}
           </div>
@@ -45,7 +52,7 @@
               {{ quest.date | date : 'MMM d, y' }}
             </div>
           </div>
-    
+
         </li>
       </ul>
     </div>
