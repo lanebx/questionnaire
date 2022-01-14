@@ -34,9 +34,7 @@ export class MultipleQuestionComponent implements OnInit {
   dataInfo: DataInfo;
 
   ngOnInit(): void {
-    this.route
-      .data
-      .subscribe(data => this.dataInfo = data as DataInfo);
+    this.dataInfo = this.route.snapshot.data as DataInfo;
 
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])

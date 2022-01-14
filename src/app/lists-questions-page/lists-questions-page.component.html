@@ -20,6 +20,7 @@
 
           <div [ngSwitch]="quest.type">
             <ng-template ngSwitchCase="Single">
+              <app-single-question [item]="quest"></app-single-question>
             </ng-template>
     
             <ng-template ngSwitchCase="Multiple">
