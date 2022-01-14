@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DataInfo } from '../question-edit-create/question-edit-create.component';
+import { DataInfo } from '../interfaces/interfaces';
 import { Question, TestService } from '../shared/services/Question.service';
 
 @Component({

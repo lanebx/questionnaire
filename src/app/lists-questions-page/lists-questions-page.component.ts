@@ -1,7 +1,6 @@
 import { Question } from './../shared/services/Question.service';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
 import { TestService } from '../shared/services/Question.service';
 
 @Component({
