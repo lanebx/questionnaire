@@ -20,14 +20,12 @@ export class QuestionEditCreateComponent {
 
   questionForm: FormGroup;
 
-  allTypes = this.testService.allTypes.map((item) => ({...item}));
   editableQuestion: Question;
   type: string;
   id: number | undefined;
   checkId: boolean = true;
   dataInfo: DataInfo;
   answerOptionArray: string[];
-  
   pageTitle: string;
 
   ngOnInit(): void {
@@ -71,7 +69,7 @@ export class QuestionEditCreateComponent {
       answered: false,
       answer: '',
       date: (new Date).toISOString(),
-      answerOptions: this.answerOptionArray,
+      answerOptions: this.answerOptionArray || this.editableQuestion.answerOptions,
     }
 
     if (this.dataInfo.status === 'edit') {

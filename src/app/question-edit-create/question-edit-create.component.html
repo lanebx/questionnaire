@@ -33,7 +33,7 @@
           formControlName="type"
           class="form__select input"
         >
-          <option *ngFor="let type of allTypes" [value]="type.name">
+          <option *ngFor="let type of testService.allTypes" [value]="type.name">
             {{ type.name }}
           </option>
         </select>

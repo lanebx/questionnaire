@@ -16,7 +16,7 @@ export class OpenQuestionComponent implements OnInit{
   @Output() itemChange = new EventEmitter();
 
   dataInfo: DataInfo;
-  checkAnwer: boolean = false;
+  checkAnswer: boolean = false;
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
@@ -27,9 +27,9 @@ export class OpenQuestionComponent implements OnInit{
     this.itemChange.emit(model);
 
     if (model.trim().length > 0) {
-     this.checkAnwer = true;
+     this.checkAnswer = true;
     } else {
-      this.checkAnwer = false;
+      this.checkAnswer = false;
     }
   }
 

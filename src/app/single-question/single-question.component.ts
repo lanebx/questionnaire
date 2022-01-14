@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DataInfo, Question } from '../interfaces/interfaces';
+import { TestService } from '../shared/services/Question.service';
 
 @Component({
   selector: 'app-single-question',
@@ -12,32 +13,49 @@ export class SingleQuestionComponent implements OnInit {
   constructor (
     private fb: FormBuilder,
     private route: ActivatedRoute,
+    private testService: TestService,
   ) { }
 
   @Input() item: Question;
+
+
   @Output() blur = new EventEmitter();
 
   formAnswerOptions: FormGroup;
   dataInfo: DataInfo;
-  checkAnwer: boolean = false;
+  id: number;
+  checkAnswer: boolean = false;
+  oldQuestion: Question;
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
+    let newControlArray: FormControl[];
+
+    if (this.dataInfo.status === 'edit') {
+      this.id = +this.route.snapshot.params.id;
+      this.oldQuestion = this.testService.allQuestion.find(item => item.id === this.id);
+      newControlArray = this.oldQuestion.answerOptions.map(item => {
+        return this.fb.control(item, Validators.required);
+      })
+    }
+    
+
+    if (this.dataInfo)
 
     this.formAnswerOptions = this.fb.group({
-      answerOptions: this.fb.array([this.fb.control('', Validators.required)])
+      answerOptions: this.fb.array(newControlArray || [this.fb.control('', Validators.required)])
     })
   }
 
   onChange(model: any) {
     this.item.answer = model.path[1].innerText;
-    this.checkAnwer = true;
+    this.checkAnswer = true;
   }
 
   onClick() {
     this.item.answered = true;
     this.item.dateOfAnswer = (new Date).toISOString();
-    this.checkAnwer = true;
+    this.checkAnswer = true;
   }
 
   onBlur() {
@@ -46,7 +64,7 @@ export class SingleQuestionComponent implements OnInit {
 
   addChoice(): void {
     if (this.answerOptions.value.every((item: any) => item.length >= 1)) {
-      this.answerOptions.push(this.fb.control(''))
+      this.answerOptions.push(this.fb.control('', Validators.required))
     }
   }
 

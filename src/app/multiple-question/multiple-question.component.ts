@@ -19,7 +19,7 @@ export class MultipleQuestionComponent implements OnInit {
   @Output() blur = new EventEmitter();
 
   arrayAnswers: [string, boolean][];
-  checkAnwer: boolean = false;
+  checkAnswer: boolean = false;
   formAnswerOptions: FormGroup;
   dataInfo: DataInfo;
 
@@ -38,7 +38,7 @@ export class MultipleQuestionComponent implements OnInit {
   }
 
   addAnswer(event: any) {
-    this.checkAnwer = false;
+    this.checkAnswer = false;
 
     this.arrayAnswers = this.arrayAnswers.map(item => {
       if (event.path[1].innerText.trim() === item[0]) {
@@ -46,7 +46,7 @@ export class MultipleQuestionComponent implements OnInit {
       }
 
       if (item[1]) {
-        this.checkAnwer = true;
+        this.checkAnswer = true;
       }
 
       return item;
