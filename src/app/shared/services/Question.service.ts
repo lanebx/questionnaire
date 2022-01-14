@@ -1,15 +1,5 @@
 import { Injectable } from '@angular/core';
-
-export interface Question {
-  id: number;
-  question: string;
-  answered: boolean;
-  answer: string;
-  type: 'Single' | 'Multiple' | 'Open';
-  date: string;
-  dateOfAnswer: string;
-  answerOptions: string[];
-}
+import { Question } from 'src/app/interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',

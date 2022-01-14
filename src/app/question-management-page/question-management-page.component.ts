@@ -1,4 +1,3 @@
-import { Question } from './../shared/services/Question.service';
 import { TestService } from '../shared/services/Question.service';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';

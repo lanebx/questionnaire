@@ -1,7 +1,6 @@
-import { Question } from './../shared/services/Question.service';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DataInfo } from '../interfaces/interfaces';
+import { DataInfo, Question } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-open-question',

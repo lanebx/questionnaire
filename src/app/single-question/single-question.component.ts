@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DataInfo } from '../interfaces/interfaces';
-import { Question, TestService } from '../shared/services/Question.service';
+import { DataInfo, Question } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-single-question',

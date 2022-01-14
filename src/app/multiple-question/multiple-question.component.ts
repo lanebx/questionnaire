@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
-import { DataInfo } from '../interfaces/interfaces';
-import { Question, TestService } from '../shared/services/Question.service';
+import { DataInfo, Question } from '../interfaces/interfaces';
+import { TestService } from '../shared/services/Question.service';
 
 @Component({
   selector: 'app-multiple-question',
