@@ -35,30 +35,24 @@ export class QuestionEditCreateComponent {
   pageTitle: string;
 
   ngOnInit(): void {
-    // this.route.snapshot.data.dataInfo
-    // this.route.snapshot.params.id
-    this.route
-      .data
-      .subscribe(data => this.dataInfo = data as DataInfo);
+    this.dataInfo = this.route.snapshot.data as DataInfo;
 
     if (this.dataInfo.status === 'edit') {
-      this.route.paramMap.pipe(
-        switchMap(params => params.getAll('id'))
-      ).subscribe(data => this.id = +data);
+      this.id = +this.route.snapshot.params.id;
 
       this.checkId = this.testService.allQuestion.some(item => {
         if (item.id === this.id) {
           this.editableQuestion = item;
           this.type = item.type;
           this.pageTitle = 'Edit question';
-          this.initializeEditForm();
+          this.initializeForm()
         }
 
         return item.id === this.id;
       });
     } else {
       this.pageTitle = 'Create question';
-      this.initializeCreateForm()
+      this.initializeForm()
     }
 
     this.questionForm.get('type').valueChanges.subscribe(val => {
@@ -66,18 +60,10 @@ export class QuestionEditCreateComponent {
     })
   }
 
-  initializeEditForm() : void {
+  initializeForm() : void {
     this.questionForm = this.fb.group({
-      question: new FormControl(this.editableQuestion.question, Validators.required),
-      type: new FormControl(this.editableQuestion.type, Validators.required),
-      answerOptions: this.fb.array([this.fb.control('', Validators.required)])
-    });
-  }
-
-  initializeCreateForm() : void {
-    this.questionForm = this.fb.group({
-      question: new FormControl('', Validators.required),
-      type: new FormControl('', Validators.required),
+      question: new FormControl(this.editableQuestion?.question || '', Validators.required),
+      type: new FormControl(this.editableQuestion?.type || '', Validators.required),
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
     });
   }
