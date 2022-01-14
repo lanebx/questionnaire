@@ -59,13 +59,13 @@
   <ul class="answer-list">
     <li *ngFor="let option of item.answerOptions">
       <label>
-        {{ option }}
         <input
           type="radio"
           value="{{option}}"
           name="answer"
           (click)="onChange($event)"
         >
+        {{ option }}
       </label>
     </li>
   </ul>

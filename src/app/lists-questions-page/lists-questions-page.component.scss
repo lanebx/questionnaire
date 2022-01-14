@@ -12,9 +12,6 @@
 
 .question-item {
   height: 200px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 
   &__clear-button {
     padding-top: 3px;
@@ -36,4 +33,7 @@
 .answered {
   background-color: rgb(208, 233, 206);
   color: rgb(80, 122, 92);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }

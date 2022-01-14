@@ -56,8 +56,13 @@
   <ul class="answer-list">
     <li *ngFor="let option of item.answerOptions">
       <label>
+        <input
+          type="checkbox"
+          [value]="option"
+          name="answer"
+          (click)="addAnswer($event)"
+        >
         {{ option }}
-        <input type="checkbox" [value]="option" name="answer" (click)="addAnswer($event)">
       </label>
     </li>
   </ul>
