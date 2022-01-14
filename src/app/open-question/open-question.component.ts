@@ -1,7 +1,7 @@
-import { DataInfo } from './../question-edit-create/question-edit-create.component';
 import { Question } from './../shared/services/Question.service';
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataInfo } from '../interfaces/interfaces';
 
 @Component({
   selector: 'app-open-question',
@@ -19,9 +19,7 @@ export class OpenQuestionComponent implements OnInit{
   dataInfo: DataInfo;
 
   ngOnInit(): void {
-    this.route
-      .data
-      .subscribe(data => this.dataInfo = data as DataInfo);
+    this.dataInfo = this.route.snapshot.data as DataInfo;
   }
 
    onChange(model: string){

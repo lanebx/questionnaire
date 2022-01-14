@@ -14,7 +14,6 @@ export class ListsQuestionsPageComponent implements OnInit {
   questionsList: Question[];
 
   ngOnInit(): void {
-    console.log('init view')
     this.questionsList = this.testService.allQuestion;
 
     this.formGroup = new FormGroup({
@@ -24,8 +23,6 @@ export class ListsQuestionsPageComponent implements OnInit {
 
   constructor(
     private testService: TestService,
-    private route: ActivatedRoute,
-    private path: Router,
   ) { }
 
   get answeredQuestions() {

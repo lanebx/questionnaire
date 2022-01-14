@@ -2,12 +2,8 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DataInfo } from '../interfaces/interfaces';
 import { Question, TestService } from '../shared/services/Question.service';
-import { switchMap } from 'rxjs/operators';
-
-export interface DataInfo {
-  status: string;
-}
 
 @Component({
   selector: 'app-question-edit-create',
