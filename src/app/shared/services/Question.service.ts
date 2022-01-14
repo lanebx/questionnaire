@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 import { Question } from 'src/app/interfaces/interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TestService {
+  questions$: BehaviorSubject<any> = new BehaviorSubject(null);
 
-  constructor() { }
+  constructor(private http) { }
 
   allQuestion: Question[] = [
     { id: 1641889825774, question: 'Question 1', answered: true, answer: 'Answer 1', type: 'Open', date: '2019-01-26T13:51:50.417Z', answerOptions: [], dateOfAnswer: '2019-01-26T13:51:50.417Z' },
@@ -21,4 +23,10 @@ export class TestService {
     { id: 2, name: 'Multiple' },
     { id: 3, name: 'Open' },
   ];
+
+  getQuestions() {
+    this.questions$.next(localStorage.getItem('ourKey'));
+  }
+
+
 }

@@ -21,7 +21,7 @@
         <div>
           Edit question:
         </div>
-        <input formControlName="question" class="input">
+        <input formControlName="question" class="input" required>
       </label>
 
       <label class="label">
@@ -45,7 +45,7 @@
         </ng-template>
 
         <ng-template ngSwitchCase="Multiple">
-            <app-multiple-question (blur)=onBlur($event)></app-multiple-question>
+          <app-multiple-question (blur)=onBlur($event)></app-multiple-question>
         </ng-template>
 
         <ng-template ngSwitchCase="Open">

@@ -27,6 +27,7 @@ export class QuestionEditCreateComponent {
   dataInfo: DataInfo;
   answerOptionArray: string[];
   pageTitle: string;
+  formChecker: boolean = false;
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
@@ -44,6 +45,10 @@ export class QuestionEditCreateComponent {
 
         return item.id === this.id;
       });
+
+      this.questionForm.valueChanges.subscribe(val => {
+        console.log(val);
+      })
     } else {
       this.pageTitle = 'Create question';
       this.initializeForm()
@@ -78,13 +83,14 @@ export class QuestionEditCreateComponent {
         id: this.editableQuestion.id,
         date: this.editableQuestion.date,
       }
+
       this.testService.allQuestion = this.testService.allQuestion
-      .map((item) => this.editableQuestion.id === item.id ? newQuestion : item)
+        .map((item) => this.editableQuestion.id === item.id ? newQuestion : item)
     } else {
       this.testService.allQuestion.push(newQuestion);
     }
 
-    console.log(newQuestion)
+    console.log(newQuestion);
     this.path.navigate(['/']);
   }
 
