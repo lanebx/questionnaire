@@ -8,9 +8,15 @@
     [ngModel]="item.answer"
     (ngModelChange)="onChange($event)"
     maxlength="255"
+    required
   ></textarea>
 
-  <button type="button" (click)="onClick()" class="button-submit button">
+  <button
+    type="button"
+    (click)="onClick()"
+    class="button-submit button"
+    [disabled]="!checkAnwer"
+  >
     Save
   </button>
 </div>

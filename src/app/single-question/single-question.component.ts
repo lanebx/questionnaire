@@ -20,6 +20,7 @@ export class SingleQuestionComponent implements OnInit {
 
   formAnswerOptions: FormGroup;
   dataInfo: DataInfo;
+  checkAnwer: boolean = false;
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
@@ -37,6 +38,7 @@ export class SingleQuestionComponent implements OnInit {
   onClick() {
     this.item.answered = true;
     this.item.dateOfAnswer = (new Date).toISOString();
+    this.checkAnwer = true;
   }
 
   onBlur() {
