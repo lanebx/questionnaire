@@ -1,3 +1,4 @@
+import { Question } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Question } from '../interfaces/interfaces';
@@ -36,6 +37,12 @@ export class ListsQuestionsPageComponent implements OnInit {
     unansweredQuestions.sort((a, b) => <any>new Date(b.date) - <any>new Date(a.date));
 
     return unansweredQuestions;
+  }
+
+  clearAnswer(question: Question) {
+    question.answer = '';
+    question.answered = false;
+    question.dateOfAnswer = '';
   }
 
 }

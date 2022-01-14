@@ -62,7 +62,9 @@
             </div>
           </div>
 
-          <div class="question-item__clear-button button button-submit button-remove">
+          <div
+            (click)="clearAnswer(quest)"
+            class="question-item__clear-button button button-submit button-remove">
             Clear
           </div>
         </li>
