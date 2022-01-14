@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DataInfo, Question } from '../interfaces/interfaces';
-import { TestService } from '../shared/services/Question.service';
+
 
 @Component({
   selector: 'app-multiple-question',
@@ -11,23 +11,33 @@ import { TestService } from '../shared/services/Question.service';
 })
 export class MultipleQuestionComponent implements OnInit {
   constructor (
-    private testService: TestService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
   ) { }
 
   @Input() item: Question;
-  @Output() itemChange = new EventEmitter();
+
   @Output() blur = new EventEmitter();
 
-  onChange(model: any) {
-    this.item.answer = model.path[1].innerText;
-    this.itemChange.emit(model);
+  arrayAnswers: [string, boolean][];
+
+  addAnswer(event: any) {
+    console.log(event.path[1].innerText)
+    this.arrayAnswers = this.arrayAnswers.map(item => {
+      if (event.path[1].innerText.trim() === item[0]) {
+        item[1] = !item[1];
+      }
+
+      return item;
+    })
   }
 
   onClick() {
+    console.log(this.arrayAnswers)
+    const newAnswer = this.arrayAnswers.filter(item => item[1]).map(item => item[0])
+    this.item.answer = newAnswer;
     this.item.answered = true;
-    this.item.dateOfAnswer = (new Date).toISOString();
+    this.item.dateOfAnswer = (new Date).toISOString(); 
   }
 
   formAnswerOptions: FormGroup;
@@ -35,6 +45,10 @@ export class MultipleQuestionComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
+  
+    this.arrayAnswers = this.item.answerOptions.map(item => {
+      return [item, false]
+    });
 
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])

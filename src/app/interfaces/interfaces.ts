@@ -6,7 +6,7 @@ export interface Question {
   id: number;
   question: string;
   answered: boolean;
-  answer: string;
+  answer: string | string[];
   type: 'Single' | 'Multiple' | 'Open';
   date: string;
   dateOfAnswer: string;
