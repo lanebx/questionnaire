@@ -10,18 +10,30 @@
   }
 }
 
-.answer-block {
-  border: 1px solid rgba(77, 77, 77, 0.356);
+.question-item {
+  height: 190px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  &__clear-button {
+    padding-top: 3px;
+  }
+
+  &__description-answered {
+    margin-top: 10px;
+  }
 
   &__answer {
-    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  &__answerDate {
     margin-top: 10px;
   }
 }
 
-.question-item {
-  &__clear-button {
-    padding-top: 3px;
-    
-  }
+.answered {
+  background-color: rgb(208, 233, 206);
+  color: rgb(80, 122, 92);
 }

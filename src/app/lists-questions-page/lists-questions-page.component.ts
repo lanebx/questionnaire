@@ -1,7 +1,6 @@
 import { Question } from 'src/app/interfaces/interfaces';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Question } from '../interfaces/interfaces';
 import { TestService } from '../shared/services/Question.service';
 
 @Component({

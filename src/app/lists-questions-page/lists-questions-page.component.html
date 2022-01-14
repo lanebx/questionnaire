@@ -47,18 +47,18 @@
       </h3>
 
       <ul class="questions-list">
-        <li *ngFor="let quest of answeredQuestions" class="question-item">
-          <div class="question-item__description">
-            {{ quest.question }}
-          </div>
-
-          <div class="answer-block">
-            <div class="answer-block__label">
-              Your answer:
+        <li *ngFor="let quest of answeredQuestions" class="question-item answered">
+          <div class="container">
+            <div class="question-item__description-answered">
+              <b>Question</b>: {{ quest.question }}
             </div>
   
-            <div class="answer-block__answer">
-              {{ quest.answer }}
+            <div class="question-item__answer">
+              <b>Answer</b>: <em>{{ quest.answer }}</em>
+            </div>
+  
+            <div class="question-item__answerDate">
+              <b>Reply date </b>: <em>{{ quest.dateOfAnswer | date : 'MMM d, y' }}</em>
             </div>
           </div>
 
