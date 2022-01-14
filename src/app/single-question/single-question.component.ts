@@ -15,7 +15,6 @@ export class SingleQuestionComponent implements OnInit {
   ) { }
 
   @Input() item: Question;
-  @Output() itemChange = new EventEmitter();
   @Output() blur = new EventEmitter();
 
   formAnswerOptions: FormGroup;
@@ -32,7 +31,7 @@ export class SingleQuestionComponent implements OnInit {
 
   onChange(model: any) {
     this.item.answer = model.path[1].innerText;
-    this.itemChange.emit(model);
+    this.checkAnwer = true;
   }
 
   onClick() {

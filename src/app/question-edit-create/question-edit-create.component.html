@@ -41,7 +41,7 @@
 
       <div [ngSwitch]="type">
         <ng-template ngSwitchCase="Single">
-          <app-single-question></app-single-question>
+          <app-single-question (blur)=onBlur($event)></app-single-question>
         </ng-template>
 
         <ng-template ngSwitchCase="Multiple">

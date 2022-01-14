@@ -16,11 +16,26 @@ export class MultipleQuestionComponent implements OnInit {
   ) { }
 
   @Input() item: Question;
-
   @Output() blur = new EventEmitter();
 
   arrayAnswers: [string, boolean][];
   checkAnwer: boolean = false;
+  formAnswerOptions: FormGroup;
+  dataInfo: DataInfo;
+
+  ngOnInit(): void {
+    this.dataInfo = this.route.snapshot.data as DataInfo;
+  
+    if (this.dataInfo.status === 'view') {
+      this.arrayAnswers = this.item.answerOptions.map(item => {
+        return [item, false]
+      });
+    }
+
+    this.formAnswerOptions = this.fb.group({
+      answerOptions: this.fb.array([this.fb.control('', Validators.required)])
+    })
+  }
 
   addAnswer(event: any) {
     this.checkAnwer = false;
@@ -42,21 +57,6 @@ export class MultipleQuestionComponent implements OnInit {
     this.item.answer = this.arrayAnswers.filter(item => item[1]).map(item => item[0]);
     this.item.answered = true;
     this.item.dateOfAnswer = (new Date).toISOString(); 
-  }
-
-  formAnswerOptions: FormGroup;
-  dataInfo: DataInfo;
-
-  ngOnInit(): void {
-    this.dataInfo = this.route.snapshot.data as DataInfo;
-  
-    this.arrayAnswers = this.item.answerOptions.map(item => {
-      return [item, false]
-    });
-
-    this.formAnswerOptions = this.fb.group({
-      answerOptions: this.fb.array([this.fb.control('', Validators.required)])
-    })
   }
 
   onBlur() {

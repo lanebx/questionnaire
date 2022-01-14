@@ -132,3 +132,7 @@ button[disabled]{
     font-weight: normal;
   }
 }
+
+input:invalid:required {
+  border: 1px solid rgb(241, 206, 206);
+}

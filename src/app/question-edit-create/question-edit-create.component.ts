@@ -96,7 +96,6 @@ export class QuestionEditCreateComponent {
 
   onBlur(answerOption: string[]): void {
     this.answerOptionArray = answerOption;
-    console.log(answerOption);
   }
 }
 
