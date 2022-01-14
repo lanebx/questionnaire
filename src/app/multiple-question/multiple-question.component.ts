@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { DataInfo, Question } from '../interfaces/interfaces';
+import { TestService } from '../shared/services/Question.service';
 
 
 @Component({
@@ -11,6 +12,7 @@ import { DataInfo, Question } from '../interfaces/interfaces';
 })
 export class MultipleQuestionComponent implements OnInit {
   constructor (
+    private testService: TestService,
     private fb: FormBuilder,
     private route: ActivatedRoute,
   ) { }
@@ -21,20 +23,31 @@ export class MultipleQuestionComponent implements OnInit {
   arrayAnswers: [string, boolean][];
   checkAnswer: boolean = false;
   formAnswerOptions: FormGroup;
+  id: number;
   dataInfo: DataInfo;
+  oldQuestion: Question;
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
+    let newControlArray: FormControl[];
   
     if (this.dataInfo.status === 'view') {
       this.arrayAnswers = this.item.answerOptions.map(item => {
-        return [item, false]
+        return [item, false];
       });
     }
 
+    if (this.dataInfo.status === 'edit') {
+      this.id = +this.route.snapshot.params.id;
+      this.oldQuestion = this.testService.allQuestion.find(item => item.id === this.id);
+      newControlArray = this.oldQuestion.answerOptions.map(item => {
+        return this.fb.control(item, Validators.required);
+      });
+    }
+    
     this.formAnswerOptions = this.fb.group({
-      answerOptions: this.fb.array([this.fb.control('', Validators.required)])
-    })
+      answerOptions: this.fb.array(newControlArray || [this.fb.control('', Validators.required)])
+    });
   }
 
   addAnswer(event: any) {

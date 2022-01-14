@@ -39,9 +39,6 @@ export class SingleQuestionComponent implements OnInit {
       })
     }
     
-
-    if (this.dataInfo)
-
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array(newControlArray || [this.fb.control('', Validators.required)])
     })
