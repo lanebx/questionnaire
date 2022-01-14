@@ -20,12 +20,18 @@ export class MultipleQuestionComponent implements OnInit {
   @Output() blur = new EventEmitter();
 
   arrayAnswers: [string, boolean][];
+  checkAnwer: boolean = false;
 
   addAnswer(event: any) {
-    console.log(event.path[1].innerText)
+    this.checkAnwer = false;
+
     this.arrayAnswers = this.arrayAnswers.map(item => {
       if (event.path[1].innerText.trim() === item[0]) {
         item[1] = !item[1];
+      }
+
+      if (item[1]) {
+        this.checkAnwer = true;
       }
 
       return item;

@@ -59,7 +59,12 @@
     </li>
   </ul>
 
-  <button type="button" (click)="onClick()" class="button-submit button">
+  <button
+    type="button"
+    (click)="onClick()"
+    class="button-submit button"
+    [disabled]="!checkAnwer"
+  >
     Save
   </button>
 </div>

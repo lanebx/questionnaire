@@ -122,3 +122,13 @@
   font-size: 1.3rem;
   color: rgba(100, 58, 122, .8);
 }
+
+button:disabled,
+button[disabled]{
+  color: #d1d1d1;
+
+  &:hover {
+    box-shadow: none;
+    font-weight: normal;
+  }
+}
