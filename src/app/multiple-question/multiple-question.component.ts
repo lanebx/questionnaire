@@ -33,9 +33,7 @@ export class MultipleQuestionComponent implements OnInit {
   }
 
   onClick() {
-    console.log(this.arrayAnswers)
-    const newAnswer = this.arrayAnswers.filter(item => item[1]).map(item => item[0])
-    this.item.answer = newAnswer;
+    this.item.answer = this.arrayAnswers.filter(item => item[1]).map(item => item[0]);
     this.item.answered = true;
     this.item.dateOfAnswer = (new Date).toISOString(); 
   }

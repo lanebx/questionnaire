@@ -20,8 +20,10 @@
   color: rgb(77, 77, 77);
 
   &-remove {
+    display: block;
     background: rgb(241, 206, 206);
     color: rgb(219, 68, 68);
+    padding-top: 2px;
   }
 
   &-create {
