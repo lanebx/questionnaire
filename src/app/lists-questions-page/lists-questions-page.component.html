@@ -12,6 +12,7 @@
       <h3 class="list-question-page__sub-title sub-title">
         Unanswered question
       </h3>
+
       <ul class="questions-list">
         <li *ngFor="let quest of unansweredQuestions" class="question-item">
           <div class="question-item__description">
@@ -22,13 +23,13 @@
             <ng-template ngSwitchCase="Single">
               <app-single-question [item]="quest"></app-single-question>
             </ng-template>
-    
+
+            <ng-template ngSwitchCase="Open">
+              <app-open-question [item]="quest"></app-open-question>
+            </ng-template>
+
             <ng-template ngSwitchCase="Multiple">
               <app-multiple-question [item]="quest"></app-multiple-question>
-            </ng-template>
-    
-            <ng-template ngSwitchCase="Open">
-                <app-open-question [item]="quest"></app-open-question>
             </ng-template>
     
             <ng-template ngSwitchDefault>
@@ -63,7 +64,7 @@
           </div>
 
           <div
-            (click)="clearAnswer(quest)"
+            (click)="clearAnswer(quest.id)"
             class="question-item__clear-button button button-submit button-remove">
             Clear
           </div>

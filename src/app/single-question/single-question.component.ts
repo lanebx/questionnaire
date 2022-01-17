@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataInfo, Question } from '../interfaces/interfaces';
 import { TestService } from '../shared/services/Question.service';
 
@@ -14,10 +14,10 @@ export class SingleQuestionComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private testService: TestService,
+    private path: Router,
   ) { }
 
   @Input() item: Question;
-
 
   @Output() blur = new EventEmitter();
 
@@ -26,6 +26,7 @@ export class SingleQuestionComponent implements OnInit {
   id: number;
   checkAnswer: boolean = false;
   oldQuestion: Question;
+  answer: string;
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
@@ -33,30 +34,25 @@ export class SingleQuestionComponent implements OnInit {
 
     if (this.dataInfo.status === 'edit') {
       this.id = +this.route.snapshot.params.id;
-      this.oldQuestion = this.testService.allQuestion.find(item => item.id === this.id);
+      this.oldQuestion = this.testService.questions$.value.find(item => item.id === this.id);
+
       newControlArray = this.oldQuestion.answerOptions.map(item => {
         return this.fb.control(item, Validators.required);
-      })
+      });
     }
-    
+
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array(newControlArray || [this.fb.control('', Validators.required)])
-    })
+    });
   }
 
   onChange(model: any) {
-    this.item.answer = model.path[1].innerText;
+    this.answer = model.path[1].innerText;
     this.checkAnswer = true;
   }
 
   onClick() {
-    this.item.answered = true;
-    this.item.dateOfAnswer = (new Date).toISOString();
-    this.checkAnswer = true;
-  }
-
-  onBlur() {
-    this.blur.emit(this.answerOptions.value);
+    this.testService.addAnswer(this.item.id, this.answer);
   }
 
   addChoice(): void {
@@ -69,6 +65,10 @@ export class SingleQuestionComponent implements OnInit {
     if (this.answerOptions.value.length > 1) {
       this.answerOptions.removeAt(index);
     }
+  }
+
+  onBlur() {
+    this.blur.emit(this.answerOptions.value);
   }
 
   get answerOptions(): FormArray {

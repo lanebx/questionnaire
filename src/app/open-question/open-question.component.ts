@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DataInfo, Question } from '../interfaces/interfaces';
+import { TestService } from '../shared/services/Question.service';
 
 @Component({
   selector: 'app-open-question',
@@ -10,6 +11,7 @@ import { DataInfo, Question } from '../interfaces/interfaces';
 export class OpenQuestionComponent implements OnInit{
   constructor(
     private route: ActivatedRoute,
+    private testService: TestService,
   ) {}
 
   @Input() item: Question;
@@ -17,14 +19,15 @@ export class OpenQuestionComponent implements OnInit{
 
   dataInfo: DataInfo;
   checkAnswer: boolean = false;
+  answer: string;
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
   }
 
   onChange(model: string){
-    this.item.answer = model
-    this.itemChange.emit(model);
+    this.answer = model
+    // this.itemChange.emit(model);
 
     if (model.trim().length > 0) {
      this.checkAnswer = true;
@@ -34,7 +37,6 @@ export class OpenQuestionComponent implements OnInit{
   }
 
   onClick() {
-    this.item.answered = true;
-    this.item.dateOfAnswer = (new Date).toISOString();
+    this.testService.addAnswer(this.item.id, this.answer);
   }
 }

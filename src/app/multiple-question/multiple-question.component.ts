@@ -26,6 +26,7 @@ export class MultipleQuestionComponent implements OnInit {
   id: number;
   dataInfo: DataInfo;
   oldQuestion: Question;
+  answer: string[];
 
   ngOnInit(): void {
     this.dataInfo = this.route.snapshot.data as DataInfo;
@@ -39,7 +40,7 @@ export class MultipleQuestionComponent implements OnInit {
 
     if (this.dataInfo.status === 'edit') {
       this.id = +this.route.snapshot.params.id;
-      this.oldQuestion = this.testService.allQuestion.find(item => item.id === this.id);
+      this.oldQuestion = this.testService.questions$.value.find(item => item.id === this.id);
       newControlArray = this.oldQuestion.answerOptions.map(item => {
         return this.fb.control(item, Validators.required);
       });
@@ -48,6 +49,12 @@ export class MultipleQuestionComponent implements OnInit {
     this.formAnswerOptions = this.fb.group({
       answerOptions: this.fb.array(newControlArray || [this.fb.control('', Validators.required)])
     });
+  }
+
+  onClick() {
+    this.answer = this.arrayAnswers.filter(item => item[1]).map(item => item[0]);
+
+    this.testService.addAnswer(this.item.id, this.answer);
   }
 
   addAnswer(event: any) {
@@ -64,12 +71,6 @@ export class MultipleQuestionComponent implements OnInit {
 
       return item;
     })
-  }
-
-  onClick() {
-    this.item.answer = this.arrayAnswers.filter(item => item[1]).map(item => item[0]);
-    this.item.answered = true;
-    this.item.dateOfAnswer = (new Date).toISOString(); 
   }
 
   onBlur() {

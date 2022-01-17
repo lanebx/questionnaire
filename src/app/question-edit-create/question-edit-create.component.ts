@@ -30,12 +30,13 @@ export class QuestionEditCreateComponent {
   formChecker: boolean = false;
 
   ngOnInit(): void {
+    this.testService.setQuestion()
     this.dataInfo = this.route.snapshot.data as DataInfo;
 
     if (this.dataInfo.status === 'edit') {
       this.id = +this.route.snapshot.params.id;
 
-      this.checkId = this.testService.allQuestion.some(item => {
+      this.checkId = this.testService.questions$.value.some(item => {
         if (item.id === this.id) {
           this.editableQuestion = item;
           this.type = item.type;
@@ -64,7 +65,7 @@ export class QuestionEditCreateComponent {
       question: new FormControl(this.editableQuestion?.question || '', Validators.required),
       type: new FormControl(this.editableQuestion?.type || '', Validators.required),
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
-    }, ); 
+    }, );
     // {updateOn: 'blur'}
   }
 
@@ -87,15 +88,12 @@ export class QuestionEditCreateComponent {
         date: this.editableQuestion.date,
       }
 
-      this.testService.allQuestion = this.testService.allQuestion
-        .map((item) => this.editableQuestion.id === item.id ? newQuestion : item)
+      this.testService.editQuestion(this.editableQuestion.id, newQuestion);
     } else {
-      this.testService.allQuestion.push(newQuestion);
+      this.testService.addQuestion(newQuestion);
     }
 
     console.log(newQuestion);
-
-    
     this.path.navigate(['/']);
   }
 
