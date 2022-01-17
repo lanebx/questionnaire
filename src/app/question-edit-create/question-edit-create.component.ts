@@ -25,7 +25,7 @@ export class QuestionEditCreateComponent {
   id: number | undefined;
   checkId: boolean = true;
   dataInfo: DataInfo;
-  answerOptionArray: string[];
+  answerOptionArray: string[] = [''];
   pageTitle: string;
   formChecker: boolean = false;
 
@@ -64,10 +64,13 @@ export class QuestionEditCreateComponent {
       question: new FormControl(this.editableQuestion?.question || '', Validators.required),
       type: new FormControl(this.editableQuestion?.type || '', Validators.required),
       answerOptions: this.fb.array([this.fb.control('', Validators.required)])
-    });
+    }, ); 
+    // {updateOn: 'blur'}
   }
 
   onSubmit() {
+    console.log(this.questionForm.value)
+
     let newQuestion = {
       ...this.questionForm.value,
       id: Date.now(),
@@ -91,6 +94,8 @@ export class QuestionEditCreateComponent {
     }
 
     console.log(newQuestion);
+
+    
     this.path.navigate(['/']);
   }
 
