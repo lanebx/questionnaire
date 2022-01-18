@@ -73,10 +73,6 @@ export class MultipleQuestionComponent implements OnInit {
     })
   }
 
-  onBlur() {
-    this.blur.emit(this.answerOptions.value);
-  }
-
   addChoice(): void {
     if (this.answerOptions.value.every((item: any) => item.length >= 1)) {
       this.answerOptions.push(this.fb.control(''))
@@ -87,6 +83,12 @@ export class MultipleQuestionComponent implements OnInit {
     if (this.answerOptions.value.length > 1) {
       this.answerOptions.removeAt(index);
     }
+
+    this.onBlur();
+  }
+
+  onBlur() {
+    this.blur.emit(this.answerOptions.value);
   }
 
   get answerOptions(): FormArray {

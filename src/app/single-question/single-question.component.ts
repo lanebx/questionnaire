@@ -65,6 +65,8 @@ export class SingleQuestionComponent implements OnInit {
     if (this.answerOptions.value.length > 1) {
       this.answerOptions.removeAt(index);
     }
+
+    this.onBlur();
   }
 
   onBlur() {
