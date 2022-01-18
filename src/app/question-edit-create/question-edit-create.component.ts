@@ -112,7 +112,7 @@ export class QuestionEditCreateComponent {
   onBlur(answerOption: string[]): void {
     this.answerOptionArray = answerOption;
 
-    if (answerOption.length > 2) {
+    if (answerOption.length < 2) {
       this.disabled[1] = true;
     } else {
       this.disabled[1] = false;

@@ -21,7 +21,11 @@
         <div>
           Edit question:
         </div>
-        <input formControlName="question" class="input" required>
+        <input
+          formControlName="question"
+          class="input"
+          required
+        >
       </label>
 
       <label class="label">
@@ -59,7 +63,11 @@
         </ng-template>
       </div>
 
-      <button type="submit" class="button button-submit" [disabled]="type === 'Open' ? disabled[0] : disabled[0] || disabled[1]">
+      <button
+        type="submit"
+        class="button button-submit"
+        [disabled]="type === 'Open' ? disabled[0] : disabled[0] || disabled[1]"
+      >
         Submit
       </button>
     </form>

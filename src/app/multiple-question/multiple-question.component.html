@@ -23,7 +23,9 @@
               type="text"
               placeholder="Your answer:"
               class="form__input-hobby input"
+              [name]="i"
               (blur)="onBlur()"
+              required
             >
             <button
               type="button"
