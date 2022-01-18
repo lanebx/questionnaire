@@ -59,7 +59,7 @@
         </ng-template>
       </div>
 
-      <button type="submit" class="button button-submit">
+      <button type="submit" class="button button-submit" [disabled]="type === 'Open' ? disabled[0] : disabled[0] || disabled[1]">
         Submit
       </button>
     </form>

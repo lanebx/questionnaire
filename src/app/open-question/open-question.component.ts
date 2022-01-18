@@ -15,7 +15,6 @@ export class OpenQuestionComponent implements OnInit{
   ) {}
 
   @Input() item: Question;
-  @Output() itemChange = new EventEmitter();
 
   dataInfo: DataInfo;
   checkAnswer: boolean = false;
@@ -27,7 +26,6 @@ export class OpenQuestionComponent implements OnInit{
 
   onChange(model: string){
     this.answer = model
-    // this.itemChange.emit(model);
 
     if (model.trim().length > 0) {
      this.checkAnswer = true;

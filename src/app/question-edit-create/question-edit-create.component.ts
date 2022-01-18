@@ -27,7 +27,7 @@ export class QuestionEditCreateComponent {
   dataInfo: DataInfo;
   answerOptionArray: string[] = [''];
   pageTitle: string;
-  formChecker: boolean = false;
+  disabled: boolean[] = [true, true];
 
   ngOnInit(): void {
     this.testService.setQuestion()
@@ -57,6 +57,14 @@ export class QuestionEditCreateComponent {
 
     this.questionForm.get('type').valueChanges.subscribe(val => {
       this.type = val;
+    })
+
+    this.questionForm.get('question').valueChanges.subscribe(val =>{
+      if (val.length === 0) {
+        this.disabled[0] = true;
+      } else {
+        this.disabled[0] = false;
+      }
     })
   }
 
@@ -103,6 +111,12 @@ export class QuestionEditCreateComponent {
 
   onBlur(answerOption: string[]): void {
     this.answerOptionArray = answerOption;
+
+    if (answerOption.length > 2) {
+      this.disabled[1] = true;
+    } else {
+      this.disabled[1] = false;
+    }
   }
 }
 
